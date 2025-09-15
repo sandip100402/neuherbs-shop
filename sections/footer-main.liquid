@@ -1,0 +1,127 @@
+<div id="shopify-section-footer1" class="shopify-section footer_top">
+<footer id="footer" class="alo-background-color" style="border-top:1px solid rgba(0,0,0,0);--alo-background-color:{{ section.settings.footer_bg }}">
+  <section id="laber_footer1">
+    <div class="main-footer container">
+     
+   <div class="footer_logo_main_container">
+     <div class="footer_main_logo">
+        {% for block in section.blocks %}
+          {% if block.type == "social" %}
+            <div class="logo_container">
+              <a class="footer_logo_link" href="{{ block.settings.link }}" target="_blank" rel="noopener">
+                <img class="footer_logo_img" src="{{ block.settings.icon | img_url: '40x40' }}" alt="social-icon" width="40" height="40">
+              </a>
+            </div>
+          {% endif %}
+        {% endfor %}
+     </div>
+    </div>
+
+      <div class="container">
+        <div class="row">
+
+          <div class="footer-iteam 11 col-lg-3 col-md-3 col-12">
+            <aside class="widget widget_text">
+              <div class="textwidget widget_footer alo-color" style="--alo-color:{{ section.settings.text_color }}">
+                <span class="logo_txt"><p>{{ section.settings.footer_small_text }}</p></span>
+              </div>
+            </aside>
+          </div>
+
+          <div class="footer-iteam 33 col-lg-3 col-md-3 col-12">
+            <aside class="widget widget_text">
+              <h3 class="widget-title small">
+                <span class="txt_title alo-color alo-text-transform" style="--alo-color:{{ section.settings.text_color }};--alo-text-transform:none;">About us</span>
+                <span class="icon_mobile alo-color" style="--alo-color:#ffffff;"><i class="laber-icon-down icon-chevron-down"></i><i class="laber-icon-up icon-chevron-up"></i></span>
+              </h3>
+              <div class="textwidget widget_footer">
+                <div class="contentHtml alo-color" style="--alo-color:#101e1a;">
+                  <span class="footer_main_contant" style="font-size:16px;line-height:20px;font-family:'Museo 500'; color:{{ section.settings.text_color }};">{{ section.settings.about_text }}</span>
+                </div>
+              </div>
+            </aside>
+          </div>
+
+          {% for block in section.blocks %}
+            {% if block.type == "menu" %}
+              <div class="footer-iteam col-lg-2 col-md-2 col-12">
+                <aside class="widget widget_nav_menu">
+                  <h3 class="widget-title small" id="{{ block.id }}">
+                    <span class="txt_title alo-color alo-text-transform" style="--alo-color:{{ section.settings.text_color }};--alo-text-transform:none;">{{ block.settings.title }}</span>
+                    <span class="icon_mobile alo-color" style="--alo-color:#ffffff;"><i class="laber-icon-down icon-chevron-down"></i><i class="laber-icon-up icon-chevron-up"></i></span>
+                  </h3>
+                  <div class="menu_footer widget_footer">
+                    {% if block.settings.menu != blank %}
+                      <ul class="menu">
+                        {% for link in linklists[block.settings.menu].links %}
+                          <li class="menu-item">
+                            <a class="alo-color alo-color-hover" style="--alo-color:{{ section.settings.text_color }};--alo-color-hover:{{ section.settings.text_color }};" href="{{ link.url }}">{{ link.title }}</a>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                  </div>
+                </aside>
+              </div>
+            {% endif %}
+          {% endfor %}
+
+          <div class="footer-iteam 10 contact_information col-lg-2 col-md-2 col-12">
+            <aside class="widget widget_text">
+              <h3 class="widget-title small" id={{block.id }}>
+                <span class="txt_title alo-color alo-text-transform" style="--alo-color:{{ section.settings.text_color }};--alo-text-transform:none;">Here To Help You</span>
+                <span class="icon_mobile alo-color" style="--alo-color:#ffffff;"><i class="laber-icon-down icon-chevron-down"></i><i class="laber-icon-up icon-chevron-up"></i></span>  
+              </h3>
+              <div class="textwidget widget_footer">
+                <div class="information">
+                  <div class="text">Got Question?</div>
+                  <a class="phone" href="tel:{{ section.settings.contact_phone }}" style="color:{{ section.settings.text_color }}">{{ section.settings.contact_phone }}</a>
+                  <div class="mail_main"><a href="mailto:{{ section.settings.contact_email }}">{{ section.settings.contact_email }}</a></div>
+                </div>
+              </div>
+            </aside>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+</footer>
+</div>
+{%  style %}
+  #laber_footer1 {background-color:;		 	 	}@media only screen and (max-width: 1024px) {		#laber_footer1 {padding-top: 0px;padding-right: 0;padding-bottom: 30px;padding-left: 0;}	}
+{% endstyle %}
+{% schema %}
+{
+  "name": "Footer Main",
+  "settings": [
+    { "type": "color", "id": "footer_bg", "label": "Footer Background", "default": "#167a62" },
+    { "type": "color", "id": "text_color", "label": "Footer Text Color", "default": "#f3f9f7" },
+    { "type": "textarea", "id": "footer_small_text", "label": "Small Text", "default": "Your wellbeing check with specially curated tips, recipes and lifestyle support." },
+    { "type": "textarea", "id": "about_text", "label": "About Us Text", "default": "Neuherbs blends nature and science..." },
+    { "type": "text", "id": "contact_phone", "label": "Phone Number", "default": "+91989 9080 448" },
+    { "type": "text", "id": "contact_email", "label": "Email", "default": "wecare@neuherbs.com" }
+  ],
+  "blocks": [
+    {
+      "type": "social",
+      "name": "Social Link",
+      "settings": [
+        { "type": "url", "id": "link", "label": "URL" },
+        { "type": "image_picker", "id": "icon", "label": "Icon" }
+      ]
+    },
+    {
+      "type": "menu",
+      "name": "Footer Menu",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Menu Title" },
+        { "type": "link_list", "id": "menu", "label": "Menu" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Footer Main" }
+  ]
+}
+{% endschema %}

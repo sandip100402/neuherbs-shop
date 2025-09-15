@@ -1,0 +1,171 @@
+
+{% liquid
+assign id = section.id 
+assign collection = section.settings.collection
+assign products = collections[collection].products 
+assign max_count = section.settings.max_count | default: 6
+%}
+
+<div id="shopify-section-{{ id }}" class="shopify-section">
+<div class="video-collection-container">
+  
+  <!-- LEFT SIDE: Video/Image Section -->
+  <div class="video-section">
+    <div class="sticky">
+      {% if section.settings.mobile_image != blank %}
+        <img src="{{ section.settings.mobile_image | image_url }}" alt="{{ section.settings.mobile_image.alt | default: 'Video Image' }}" class="hide-desktop" width="600" height="400">
+      {% endif %}
+      
+      {% if section.settings.desktop_image != blank %}
+        <img src="{{ section.settings.desktop_image | image_url }}" alt="{{ section.settings.desktop_image.alt | default: 'Video Image' }}" class="hide-mobile" loading="lazy" width="800" height="1200">
+      {% endif %}
+    </div>
+    
+    <!-- Overlay Text Content -->
+    <div class="video-collection-text-content">
+      {% if section.settings.title != blank %}
+        <h2 class="vc-sectiontitle">{{ section.settings.title }}</h2>
+      {% endif %}
+      
+        <p class="vc-sectionsubtitle">{{ section.settings.subtitle }}</p>
+      
+      {% if section.settings.button_url != blank and section.settings.button_text != blank %}
+        <a href="{{ section.settings.button_url }}" class="vc-sectionanchor">
+          <button>{{ section.settings.button_text }}</button>
+        </a>
+      {% endif %}
+    </div>
+    
+    <!-- Video Overlay -->
+    <div class="video-overlay"></div>
+  </div>
+
+  <!-- RIGHT SIDE: Product Collection Grid - Simple Grid Layout -->
+  <div class="custom-collection-slider">
+    <div class="slider ">
+        {%- if collection != blank and products.size > 0 -%}
+          {%- for product in products limit: max_count -%}
+            {% assign pr_hd = product.handle %}
+            <div data-lazy-product-load class="productLazyload lazyload slide product-item post-item scroll-trigger" 
+                 data-include="/collections/{{collection.handle}}/products/{{pr_hd}}/?view=pr_lazy_load">
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          <!-- Default products for demo -->
+          {%- for i in (1..max_count) -%}
+            <div data-lazy-product-load class="productLazyload lazyload slide product-item post-item scroll-trigger" 
+                 data-include="/admin/products/?view=pr_lazy_load">
+            </div>
+          {%- endfor -%}
+        {%- endif -%}
+    </div>
+  </div>
+</div>
+</div>
+
+{{ 'video-collection-grid.css' | asset_url | stylesheet_tag }}
+{% schema %}
+{
+  "name": "Video Collection Grid",
+  "tag": "section",
+  "class": "spaced-section video-collection-grid",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Left Side - Video/Image Section"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop Image (800x1200)"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile Image (600x400)"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Level Up Your Health with Omega Power!"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section Subtitle"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Omega"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "header",
+      "content": "Right Side - Product Collection"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "max_count",
+      "min": 4,
+      "max": 12,
+      "step": 2,
+      "default": 6,
+      "label": "Maximum number of products"
+    },
+    {
+      "type": "color",
+      "id": "cl_bg",
+      "label": "Background color",
+      "default": "#167a62"
+    },
+    {
+      "type": "header",
+      "content": "== Setting PC",
+      "info": "Margin"
+    },
+    {
+      "type": "text",
+      "id": "mg",
+      "label": "Margin",
+      "info": "Margin top, margin right, margin bottom, margin left. If you not use to blank"
+    },
+    {
+      "type": "text",
+      "id": "pd",
+      "label": "Padding",
+      "info": "Padding top, padding right, padding bottom, padding left. If you not use to blank"
+    },
+    {
+      "type": "header",
+      "content": "== Design Mobile Options"
+    },
+    {
+      "type": "text",
+      "id": "mg_mb",
+      "label": "Margin"
+    },
+    {
+      "type": "text",
+      "id": "pd_mb",
+      "label": "Padding"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video Collection Grid"
+    }
+  ]
+}
+{% endschema %} 

@@ -1,0 +1,84 @@
+{% schema %}
+{
+  "name": "FAQ Section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "question_color",
+      "label": "Question Font Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "answer_color",
+      "label": "Answer Font Color",
+      "default": "#333333"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Sample question?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "Sample answer text goes here."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Section",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<section id="laber" class="faq-section">
+  <div class="container">
+    <div class="content_section">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-12">
+
+          {% for block in section.blocks %}
+            <div id="id_b_{{ forloop.index }}" class="item-faq">
+              <div class="js-item-faq item">
+                <h3 class="heading-title" style="color: {{ section.settings.question_color }};">
+                  <a href="javascript:void(0);" title="{{ block.settings.question }}" style="color: {{ section.settings.question_color }};">
+                    {{ block.settings.question }}
+                  </a>
+                  <span class="faqs-icon">
+                    <i class="icon-plus"></i>
+                  </span>
+                </h3>
+                <div class="content-faq" style="display: none; color: {{ section.settings.answer_color }};">
+                  <p>{{ block.settings.answer }}</p>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+      $(".heading-title").click(function () {
+        $(this).next("div.content-faq").slideToggle("fast");
+        $(this).closest('.js-item-faq').toggleClass('active');
+      });
+    });
+  </script>
+</section>

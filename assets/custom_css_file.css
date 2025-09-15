@@ -1,0 +1,604 @@
+
+@media screen and(max-width: 780){
+  .cart_main_suggested_container .product-collection{
+  width: 165px;
+}
+}
+.cart_main_suggested_container .product-collection{
+  width: 200px;
+}
+.alo_sold-product{display:none;}
+
+/* .code_setting.active{display: block;  border-radius: 20px;   left: 50%;  position: fixed;  top: 50%;  transform: translate(-50%, -50%); width: 50%; height: 55vh; overflow: auto; z-index: 11;} */
+.section-subtitle.alo-text-transform{
+  display:none;
+}
+
+.facets-container .facets__heading{
+  color: #fff;
+  padding: 10px;
+  background: #167a62;
+}
+.facets-container .facets-vertical .active-facets-vertical-filter .active-facets__button-wrapper{
+  background: #fff;
+  color: #167a62;
+}
+.facets-container .mobile-facets__summary>div, .facets__summary>div{
+      color: #000 !important;
+}
+.facets-container .facet-checkbox{
+      color: unset;
+}
+.facets-container .field__input, .select__select, .customer .field input, .customer select{
+      color: unset;
+}
+.facets-container .facets-vertical .active-facets-vertical-filter .active-facets__button-wrapper{
+  background: #fff !important;
+  color: #167a62 !important;
+}
+.facets-container .active-facets__button-remove{
+  background: #fff !important;
+  color: #167a62 !important;
+  font-size: 18px;
+}
+.code_setting.active {
+    display: block;
+    border-radius: 20px;
+    left: 50%;
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    z-index: 222;
+    margin-top: 20px;
+}
+img.consultation_appointment_image{
+  outline: 2px solid #167a62;
+    outline-offset: -5px;
+  border-radius: 20px;
+}
+    .form_overLay{
+      position: fixed;
+    top: 0;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    bottom: 0;
+      /* z-index: 10; */
+    }
+
+.custom_form_popup{
+  position: relative;
+}
+.popup_cancel_btn{
+  position: absolute;
+    right: 31%;
+    font-size: 30px;
+    top:6%;
+  cursor: pointer;
+  display: none;
+}
+  .consultation_appointment_image_bttn .consultation_appointment_btn a.consultation_appointment_btn {
+   color: #e5e8ec;
+    background: #167a62;
+  }
+
+@media screen and (max-width: 780px){
+  .section.section-custom.container{
+    padding: 0px 30px;
+  }
+  .collection-description.container{
+    padding: 0px 24px;
+  }
+  .consultation_appointment_image_bttn .content_banner.col-xs-12.col-sm-12.col-md-6.col-lg-6 {
+    padding: 0;
+}
+  .code_setting.active{
+    width: 100%;
+    border-radius: 20px;
+  }
+      .popup_cancel_btn {
+        right: 12%;
+        top: 5%;
+    }
+  /* .type_custom_html .code_setting.active {
+    margin-top: 85px;
+}
+  .consultation_appointment_main_heading .code_setting.active{
+    margin-top: 0px;
+  } */
+  /* .parrent_consultation_appointment_container .code_setting.active{
+  margin-top: 85px;
+  } */
+  
+  .consultation_appointment_image_bttn .consultation_appointment_btn a.consultation_appointment_btn {
+    font-size: 10px;
+    font-family: 'Museo 500';
+    padding: 4px 8px;
+    color: #e5e8ec;
+    background: #167a62
+  }
+  .consultation_appointment_image_bttn .consultation_appointment_btn.consultation_new_btn {
+    right: 16%;
+    bottom: -3%;
+}
+}
+hr.footer_line {
+        width: 89%;
+        margin: auto;
+        border-color: #fffdfd75;
+    }
+hr.footer_line_desk {
+    width: 89%;
+    margin: auto;
+    border-color: #fffdfd75;
+}
+.type_testimonials .quotes_wrapper.style1 .quote_content{
+  border-radius:10px !important;
+}
+/* collection */
+.overlay_img {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    bottom: 0;
+    background: #000;
+    opacity: 0.4;
+    border-radius: 20px;
+}
+.suggested_collection_first img.collection_img_head{
+  width: 100%;
+    height: 100%;
+  
+}
+.suggested_collection_first {
+    position: relative;
+}
+.suggested_collection_first {
+    position: relative;
+}
+.suggested_collection_container {
+    display: flex;
+    margin: 10px 70px;
+    justify-content: space-around;
+    gap: 100px;
+}
+.suggested_collection_title_box {
+    position: absolute;
+    top: 28%;
+    left: 5%;
+    color: #fff;
+    font-size: 32px;
+    font-family: 'Museo 700';
+}
+span.suggested_collection_title_box_main {
+    z-index: 1;
+    position: relative;
+}
+img.collection_img_head {
+    border-radius: 20px;
+}
+@media screen and (max-width: 780px) {
+  .suggested_collection_first img.collection_img_head{
+    object-fit: cover;
+  }
+    .suggested_collection_container {
+        gap: 10px;
+        margin: 20px auto;
+        width: 100%;
+    }
+
+  img.collection_img_head {
+    border-radius: 10px;
+}
+  .suggested_collection_title_box {
+    top: 25%;
+    font-size: 15px;
+  }
+  
+}
+/* cart */
+.cart_main_suggested_requently_bought_together_main {
+    margin: 0 10px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+}
+.cart_buy_together{
+  display: flex;
+    overflow: auto;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin: 0 10px;
+}
+.cart_main_suggested_container .card__media .media a img{
+  height: 75px;
+  width: 75px;
+}
+.card__media .media a img{
+  left: 8px;
+}
+.cart_main_suggested_container {
+    display: inline-flex;
+    column-gap: 5px;
+    margin: 5px 2px;
+    flex: 0 0 auto;
+    width: 100%;
+}
+.cart_main_suggested_container .atc_pro_content {
+    width: 50%;
+}
+.cart_main_suggested_container .jdgm-widget.jdgm-preview-badge {
+    display: none;
+}
+.cart_main_suggested_container .product-collection {
+    border: 1px solid #eee;
+    flex-direction: row;
+}
+.cart_main_suggested_container .jdgm-prev-badge{
+  display: none !important;
+}
+.cart_main_suggested_container span.text2 {
+    display: none ! important;
+}
+.cart_main_suggested_container .jdgm-widget.jdgm-preview-badge.jdgm--done-setup {
+    display: none !important;
+}
+  .cart_main_suggested_container .product-collection__image.product-image.js-product-images-navigation.js-product-images-hovered-end.alo-border-radius{
+    width: 50%;
+  }
+
+.cart_main_suggested_container span.text {
+    margin: -10px;
+  
+}
+.cart_main_suggested_container .product-collection__content{
+  padding-top:unset !important;
+}
+.cart_main_suggested_container span.compare {
+  font-size: 11px !important;
+    line-height: normal !important;
+    letter-spacing: 0px !important;
+}
+.cart_main_suggested_container span.current{
+  font-size: 11px !important;
+    line-height: normal !important;
+    letter-spacing: 0px !important;
+}
+.cart_main_suggested_container .product-collection__title a{
+      font-size: 10px !important;
+    line-height: 15px !important;
+}
+.cart_main_suggested_container .product-item .button-cart-bottom {
+    margin-top: 5px;
+  margin-bottom: 15px;
+}
+.cart_main_suggested_container .add-to-cart{
+  height: 30px !important;
+  font-size: 10px !important;
+}
+.cart_main_suggested_container .product-image__overlay-top-left {
+    top: 78px;
+    left: 3px;
+}
+.cart_main_suggested_container .product-image__overlay-top-left .label {
+    border-radius: 15px;
+    min-width: 75px;
+    height: 19px;
+    font-size: 10px;
+}
+.cart_main_suggested_container .label.label--sale::after {
+    content: ' OFF';
+    display: block;
+}
+.footer_newsletter_main_container .laber-newsletter .signup-newsletter-form .input-text{
+  color: #ddd;
+    font-size: 20px;
+}
+@media screen and (min-width:780px){
+  .section.section-custom.container{
+    padding: 0px 30px;
+  }
+  .collection-description.container{
+    padding: 0px 23px;
+  }
+  .footer_newsletter_main_container .laber-newsletter .signup-newsletter-form .input-text {
+    color: #ddd;
+    font-size: 20px;
+  }
+  .footer_newsletter_main_container h3.section-title.footer_newslatter_heading_main.alo-text-transform{
+  margin: 5px 0;
+  }
+  .footer_newsletter_main_container .newsletter.footer_newslatter_main_contant {
+    padding: 0px 200px 0 0;
+}
+  .footer_newsletter_main_container .newsletter-form-footer {
+           width: 300px;
+        padding: 0 0 0 1px;
+        margin-right: 20px;
+}
+  .footer_newsletter_main_container aside.laber_mail.news_main_container{
+    padding: 16px 0 0;
+  }
+   .footer_newsletter_main_container .footer_new_later_main{
+    margin-bottom: 0px;
+     
+    padding: 0 0 0 30px;
+  }
+.cart_main_suggested_container .product-item .product-collection__title {
+    margin-bottom: 5px;
+}
+  .cart_main_suggested_container .add-to-cart {
+    height: 20px !important;
+    font-size: 8px !important;
+}
+  .cart_main_suggested_container button.add-to-cart.js_add_to_cart_button {
+    width: 80%;
+    margin: auto;
+}
+  /* .suggested_collection_first img.collection_img_head {
+    width: 400px;
+    height: 70%;
+} */
+}
+@media screen and (max-width:780px){
+  .cart_main_suggested_container .product-collection{
+    gap: 5px;
+  }
+  .cart_main_suggested_container .product-image__overlay-top-left .label{
+    min-width: 60px
+}
+  .cart_main_suggested_container .product-image__overlay-top-left{
+  left: 8px;
+    top: 72px;
+  }
+  .cart_main_suggested_container .add-to-cart {
+        height: 16px !important;
+        font-size: 8px !important;
+        font-weight: 300;
+    padding: 7px !important;
+        letter-spacing: 0px;
+        width: 75%;
+}
+   .cart_main_suggested_container .product-image__overlay-top-left .label {
+   height: 16px;
+    font-size: 9px;
+   }
+  .cart_main_suggested_container .product-collection__title a {
+        min-height: 25px !important;
+  }
+}
+/* cart */
+/* .cart_suggested_main_item {
+    display: flex;
+    border: 1px solid #e5e8ec;
+    border-radius: 10px;
+    padding: 5px;
+}
+.cart_suggested_detail_container {
+    font-size: 14px;
+  font-family: 'MuseoSans-500';
+}
+.cart_main_suggested_container {
+    display: flex;
+    margin: 0 10px;
+    gap: 5px;
+}
+.cart_suggested_price {
+    text-decoration: line-through;
+}
+.cart_suggested_container {
+    width: 100%;
+}
+.cart_suggested_main_item {
+    display: flex;
+    border: 1px solid #e5e8ec;
+    border-radius: 10px;
+    padding: 5px;
+} */
+/* cart */
+a.footer_logo_link {
+    height: 100%;
+    display: block;
+    width: 100%;
+    z-index: 2;
+    position: relative;
+}
+.footer_brand_container {
+    height: 40px;
+}
+.main_cart_header {
+    background: #167a62;
+    text-align: center;
+    border-radius: 0px 0px 25px 25px;
+}
+span.cart_main_suggested_requently_bought_together {
+    margin-left: 20px;
+    color: #167a62;
+    font-family: 'Museo 700';
+}
+span.cart_heading {
+        font-size: 13px;
+    color: #f3f7f9;
+    font-family: 'Museo 500';
+}
+.hero_canvas .js-cart-inner .list-item .product-item {
+    padding: 10px !important;
+}
+li.product-item {
+    border: 1px solid #e5dfdf;
+    border-radius: 15px;
+}
+.footer_logo.footer_icons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+.textwidget.widget_footer.alo-color {
+    font-size: 16px;
+    font-family: 'Museo 500';
+    margin-top: 10px;
+}
+/* desktop */
+@media (min-width: 767px){
+span.logo_txt p{
+  margin-top: 72px;
+  margin-left: 22px;
+}
+  .footer_main_logo {
+    display: flex;
+    justify-content: space-around;
+    width: 320px;
+}
+  .footer_logo_main_container {
+    width: 22%;
+    position: absolute;
+    bottom: 65%;
+    margin: 20px 0;
+}
+}
+
+/* tab */
+@media (min-width: 768px) and (max-width: 1024px) { 
+  .footer_main_logo {
+    width: 85%;
+    margin: auto;
+}
+      .footer_logo_main_container {
+        bottom: 62%;
+      }
+  span.footer_head_text {
+        font-size: 16px;
+}
+}
+/* mobile */
+@media (max-width: 767px){
+      .footer_main_logo {
+        position: absolute;
+        display: flex;
+        bottom: 0;
+        width: 93%;
+        justify-content: space-around;
+    }
+  .footer-iteam.\31 0.contact_information.col-lg-2.col-md-2.col-12 {
+    margin-bottom: 30px;
+}
+  /* hr.footer_line {
+    margin: 0rem 0;
+} */
+  img.footer_logo_img {
+    margin-left: 8px;
+}
+  .main_footer_contianer .email-wrapper {
+    padding: 25px 10px 7px 10px;
+
+  }
+.main{
+  position: relative;
+}
+
+  .footer-bottom .policies .list-unstyled, .footer-bottom .menu_footer .menu {
+    display: flex;
+    flex-wrap: unset;
+    flex-direction: column;
+}
+  .footer-bottom .policies, .footer-bottom .menu_footer {
+    display: flex;
+    justify-content: unset !important;
+}
+      .footer-bottom .policies .list-unstyled, .footer-bottom .menu_footer .menu {
+        justify-content: center;
+        margin: 0px 20px;
+    }
+}
+@media screen and (min-width: 750px){
+         .facets__form-vertical {
+           padding-top: 50px;
+         }
+  .consultation_warries_main_logo {
+   width: 100px;
+        height: 100px;
+        margin: auto;
+}
+}
+
+@media screen and(max-width:780px){
+  .laber-newsletter .signup-newsletter-form .input-text {
+  width: 270px;
+  }
+  
+}
+
+h3.product_description_head {
+    margin-bottom: 15px;
+  margin-top: 10px;
+}
+.collection-description.container {
+    padding: 5px 0;
+  line-height: 30px;
+}
+
+.consultation_appointment_btn.consultation_new_btn {
+    position: absolute;
+    right: 30%;
+    bottom: 15%;
+}
+.content-item consultation_sections_con{
+  position: relative;
+}
+.hero_canvas .js-cart-inner .list-item .cart_main_suggested_container .product-item{
+  margin: 0 0 0px;
+}
+.hero_canvas .js-cart-inner .list-item .cart_main_suggested_container .product-item {
+    padding: 0px !important;
+}
+.cart_main_suggested_requently_bought_together_main{
+margin: 10px 0px;
+}
+.cart_main_suggested_container .product-item .button-cart-bottom {
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+/* about_us  */
+.content-item consultation_sections_con{
+  position: relative;
+}
+
+.desk_11 .mob_about_us{
+    display: none;
+  }
+.desk_11 .alo-image {
+    display: block;
+  }
+  .section-title h2.section_title_heading {
+    font-size: 36px;
+    line-height: 36px;
+    font-family: "Museo 500";
+}
+ .wrap_title h2.section-title.alo-text-transform {
+    font-family: 'Museo 500';
+}
+.faq_main_heading h2.faq_heading_container {
+      font-size: 25px;
+    line-height: 80px;
+    font-family: 'museo 300';
+    text-align: center;
+    color:#167a61;
+}
+.wrap_title.medium .section-title {
+    font-size: 36px;
+    font-family: 'museo 500';
+    line-height: 36px;
+}
+
+@media screen and (max-width: 780px) {
+  .desk_11 .alo-image {
+    display: none;
+  }
+
+  .desk_11 .mob_about_us {
+    display: block;
+  }
+}
+/*end about_us  */

@@ -1,0 +1,469 @@
+{%- liquid
+    assign limit = section.settings.limit
+    assign blog = blogs[section.settings.blog]
+    assign show_au = section.settings.show_au
+    assign show_dt = section.settings.show_dt
+    assign sid = section.id 
+    
+    assign pd_top =section.settings.pd_top |plus:0
+    assign pd_bottom =section.settings.pd_bottom |plus:0
+    assign mg_top =section.settings.mg_top |plus:0	
+    assign mg_bottom =section.settings.mg_bottom |plus:0
+    
+    assign mobile_pd_top =section.settings.mobile_pd_top |plus:0
+    assign mobile_pd_bottom =section.settings.mobile_pd_bottom |plus:0
+    assign mobile_mg_top =section.settings.mobile_mg_top |plus:0	
+    assign mobile_mg_bottom =section.settings.mobile_mg_bottom |plus:0
+    
+    assign layout =section.settings.layout 
+    
+         assign arrows =  section.settings.arrows
+  assign dots =  section.settings.dots
+
+
+    -%}
+
+
+{% paginate blog.articles by limit %}   
+
+{% liquid
+    if col_coll == 5
+    	assign col = 15
+    else
+    	assign col = 12 | divided_by: col_coll
+    endif
+%}
+{%- if section.settings.hidden %}{% break %}{% endif -%}	
+<section id="laber_{{sid}}">
+    <div class="container {%if layout == 'full-width' %}{{layout}}{%endif%}">
+      {% if section.settings.title != blank or section.settings.sub_title!= blank %}
+		<div class="wrap_title ">
+          
+		  {% if section.settings.sub_title!= blank %}
+		  <span class="section-subtitle">{{section.settings.sub_title}}</span>
+		  {% endif %}
+          
+          {% if section.settings.title != blank %}
+		  <h3 class="section-title">{{section.settings.title}}</h3>  
+		  {% endif %}
+          
+          
+          {% if section.settings.content!= blank %}
+		  <div class="content">{{section.settings.content}}</div>
+		  {% endif %}
+          
+		</div>
+      {% endif %}
+      {% capture grid %}col-xs-6 col-sm-6 col-md-4 col-lg-{{ col }}{% endcapture %}
+          {% include 'grid-slider', settings:section.settings %} 
+    <div class="content_section slick-carousel">
+    <div class="grid-slider collection-slider {%if sett_equal%}{{image_ratio}} {%endif%}" {{gridSlider}} data-append-Arrows=".arrows_{{sid}}" data-append-Dots=".dots_{{sid}}" >
+        {%- if blog != blank -%}
+            {%- for article in blog.articles -%}
+        		{%- assign art_url = article.url -%}
+                  <article class="post-item post_laber_loop {{grid}}">  
+                    <div class="item">
+                    <div class="image-blog">
+                    <a href="{{ article.url }}" title="{{ article.title }}">
+                      <div class="pr_lazy_img laber_bg_lz lazyload item__position" data-bgset="{{ article.image.src | img_url: '1x1' }}" data-ratio="{{article.image.aspect_ratio}}" data-sizes="auto" style="padding-top:{{ 1 | divided_by: article.image.aspect_ratio | times: 100}}%;" ></div>
+                    </a>
+                      <p class="cate-blog"><a href="{{blog.url}}"><span>{{blog.title}}</span></a></p>  
+                    </div> 
+                    <div class="post-info">  
+                     
+                      <div class="head head-article">
+                        <div class="title_blog">
+                          <h3>
+                            <a href="{{ article.url}}" class="post-title">{{ article.title }}</a>
+                          </h3>  
+                        </div>
+                      </div>
+                      <div class="wrap-date">
+                        <div class="inner-date">
+
+                          <span class="post_date">{{'blogs.article.post_date' | t}}</span>
+                          <span class="month">{{ article.created_at | date: "%B" }}</span>,
+                          <span class="day">{{ article.created_at | date: "%d" }}</span>
+                          <span class="year">{{ article.created_at | date: "%Y" }}</span>
+                        </div>
+                      </div>
+                      <div class="main-info-post">
+                        <div>
+                          {% if article.excerpt.size > 0 %}
+                          	{{ article.excerpt | strip_html | truncatewords: 18}}         
+                          {% else %}
+                         	 <div class="des"><p>{{ article.content | strip_html | truncatewords: 25}}</p></div>
+                          {% endif %}   
+                        </div>      
+                      </div>
+
+                      <div class="bottom_blog">
+                     	<a href="{{ article.url}}" class="readmore">{{'blogs.article.read_more' | t}}</a>
+                     
+                        <div class="author">{{'blogs.article.by_author' | t: author : ""}} <span><a href="#">{{article.author}}</a></span></div>
+                     </div>
+                     </div>
+                    
+                  </article>	
+        	{%- endfor -%}
+          {%- else -%}
+             {%- for i in (1..5) -%}
+               <article class="post-item post_laber_loop {{grid}}">
+                 <div class="item">
+                   <div class="image-blog">
+                     {% assign no-img = "https://via.placeholder.com/360x240.png/efefef?text=450x280" %}
+                     <a href="/"><img class="lazyload" data-src="{{ no-img }}" alt="Best shopify theme"></a>
+                     <div class="cate-blog"><a href="#"><span>Shopping</span></a></div>
+                   </div> 
+                   <div class="post-info">  
+                     <div class="head head-article">
+                       <div class="title_blog">
+                         <h3>
+                           <a href="/" class="post-title">Best shopify theme</a>
+                         </h3>  
+                       </div>
+                     </div>
+                     <div class="wrap-date">
+                         <div class="inner-date">
+                           <span class="post_date">{{'blogs.article.post_date' | t}}</span>
+                           <span class="month">2022</span>,
+                           <span class="day">05</span>
+                           <span class="year">Feb</span>
+                         </div>
+                       </div>
+                     <div class="main-info-post">
+                       <div>                       
+                         <div class="des">We work with passion and aim at excellence. Our team does not simply satisfy with the good Shopify features</div>                      
+                       </div>      
+                     </div>
+                     <div class="bottom_blog">
+                     	<a href="#" class="readmore">{{'blogs.article.read_more' | t}}</a>
+                       	<div class="author">{{'blogs.article.by_author' | t: author : ""}}<span>Gosto</span></div>
+                     </div>
+                   </div>
+                 </div>
+               </article>
+             {%- endfor -%}
+          {%- endif -%}
+      </div>  
+    {%if dots %}
+            <div class="laber_append_dots dots_{{sid}}"></div>
+            {%endif%}
+            {%if arrows%}	
+            <div class="laber_append_arrows arrows_{{sid}}"></div>	
+            {% endif %}
+    </div>
+                  </div>               
+</section>
+  {%- render 'section_style' -%}
+ {% endpaginate %} 
+
+
+{%- schema -%}
+  {
+    "name": "Blog posts (Style 2)",
+    "class": "cms_section laber_section blog-style2 type_carousel zoom_img",
+    "settings": [
+      {
+      "type": "checkbox",
+      "id": "hidden",
+      "label": "Hidden Section?",
+      "default": false
+      },
+      {
+        "type": "header",
+        "content": "== Title Settings"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Tips & tricks"
+      },
+      {
+        "type": "text",
+        "id": "sub_title",
+        "label": "Sub Text"
+      },   
+	  {
+        "type": "textarea",
+        "id": "content",
+        "label": "Content",
+        "default": "Commodo sociosqu venenatis cras dolor sagittis integer luctus maecenas."
+      },
+      {
+        "type": "header",
+        "content": "== General Settings"
+      },     
+      {
+        "id": "blog",
+        "type": "blog",
+        "label": "Blog"
+      },
+		{
+        "type": "header",
+        "content": "---- Slider Show Collection ----",
+        "info": "Refer to the attribute values [here](https://kenwheeler.github.io/slick)"
+    }, 	
+    {
+        "type": "checkbox",
+        "id": "use-slider",
+        "label": "Use slider?",
+        "default": true
+    },
+    {  
+        "type": "range",  
+        "id": "slides-To-Scroll",  
+        "label": "Slide to scroll",  
+        "info": "The number of items slide to scroll",
+        "min": 1,
+        "max": 8,
+        "step": 1,
+        "unit": "pds",
+        "default": 1
+    },   
+    {  
+        "type": "range",  
+        "id": "visible",  
+        "label": "Columns in Visible",
+		"info": "Item(s) in screen ( Size >= 1920 )",
+        "min": 1,
+        "max": 8,
+        "step": 1,
+        "unit": "pds",
+        "default": 5 
+    },
+    {  
+        "type": "range",  
+        "id": "widescreen",  
+        "label": "Columns in Widescreen",
+		"info": "Item(s) in screen ( 1366 <= Size < 1920 )",
+        "min": 1,
+        "max": 8,
+        "step": 1,
+        "unit": "pds",
+        "default": 4 
+    },  
+    {  
+        "type": "range",  
+        "id": "desktop",  
+        "label": "Columns in Desktop",
+		"info":  "Item(s) in screen ( 1200 <= Size < 1480 )",
+        "min": 1,
+        "max": 8,
+        "step": 1,
+        "unit": "pds",
+        "default": 4  
+    },	  
+    {  
+        "type": "range",  
+        "id": "laptop",  
+        "label": "Columns in Laptop",
+		"info": "Item(s) in screen ( 992 <= Size < 1200 )",
+        "min": 1,
+        "max": 8,
+        "step": 1,
+        "unit": "pds",
+        "default": 4
+    },	  
+    {  
+        "type": "range",  
+        "id": "notebook",  
+        "label": "Columns in Notebook",
+		"info": "Item(s) in screen ( 768 <= Size < 992 )",
+        "min": 1,
+        "max": 8,
+        "step": 1,
+        "unit": "pds",
+        "default": 3  
+    },  
+    {  
+        "type": "range",  
+        "id": "tablet",  
+        "label": "Columns in Tablet",
+		"info": "Item(s) in screen ( 576 <= Size < 768 )",
+        "min": 1,
+        "max": 8,
+        "step": 1,
+        "unit": "pds",
+        "default": 3 
+    },
+    {  
+        "type": "range",  
+        "id": "landscape",  
+        "label": "Columns in Landscape",
+		"info": "Item(s) in screen ( 480 <= Size < 576 )",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "unit": "pds",
+        "default": 2 
+    }, 
+    {  
+        "type": "range",  
+        "id": "portrait",  
+        "label": "Columns in Portrait",
+		"info": "Item(s) in screen ( 360 < Size < 480 )",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "unit": "pds",
+        "default": 2 
+    },
+    {  
+        "type": "range",  
+        "id": "mobile",  
+        "label": "Columns in Mobile",
+		"info": "Item(s) in screen ( Size < = 360 )",
+        "min": 1,
+        "max": 4,
+        "step": 1,
+        "unit": "pds",
+        "default": 1 
+    },
+    {  
+        "type": "range",  
+        "id": "rows",  
+        "label": "Rows Slider",  
+        "min": 1,
+        "max": 3,
+        "step": 1,
+        "unit": "pds",
+        "default": 1
+    },
+    {
+        "type": "checkbox",
+        "id": "autoplay",
+        "label": "Autoplay",
+        "default": true
+    },
+    {	
+        "type": "text",
+        "id": "speed",
+        "label": "Speed",
+        "default": "300",
+        "info": "Autoplay Speed in milliseconds"
+    },
+    {	
+        "type": "text",
+        "id": "autoplay-Speed",
+        "label": "Auto Play Speed",
+        "default": "3000",
+        "info": "Autoplay Speed in milliseconds"
+    },
+    {	
+        "type": "checkbox",
+        "id": "arrows",
+        "label": "Arrows",
+        "default": true
+    },
+    {	
+        "type": "checkbox",
+        "id": "fade",
+        "label": "Fade",
+        "default": false,
+        "info": "Only use for 1 column"
+    },
+    {	
+        "type": "checkbox",
+        "id": "center-Mode",
+        "label": "Center Mode",
+        "default": false
+    },
+    {	
+        "type": "checkbox",
+        "id": "adaptive-Height",
+        "label": "Adaptive Height",
+        "default": false
+    },
+    {	
+        "type": "checkbox",
+        "id": "dots",
+        "label": "Dots",
+        "default": false 
+    },
+    {	
+        "type": "checkbox",
+        "id": "infinite",
+        "label": "Infinite",
+        "default": false
+    },
+    {  
+        "type": "range",  
+        "id": "padding",  
+        "label": "padding",
+		"info": "Distance between items",
+        "min": 0,
+        "max": 15,
+        "step": 5,
+        "unit": "px",
+        "default": 10 
+    },
+    {	
+        "type": "checkbox",
+        "id": "vertical",
+        "label": "Vertical",
+        "default": false
+    },	
+      {
+        "type": "header",
+        "content": "== Design Options"
+      },
+      {
+        "type": "select",
+        "id": "layout",
+        "options": [
+         {
+            "value": "container",
+            "label": "Container"
+         },
+         {
+            "value": "full-width",
+            "label": "Full Width"
+          }
+        ],
+        "label": "Layout"
+      },
+      {
+        "type": "color",
+        "id": "cl_bg",
+        "label": "Background color",
+        "default": "#fff"
+      },
+	  {
+        "type": "text",
+        "id": "mg",
+        "label": "Margin",
+        "info":"Margin top, margin right, margin bottom, margin left. If you not use to blank"
+      },
+      {
+        "type": "text",
+        "id": "pd",
+        "label": "Padding",
+        "info":"Padding top, padding right, padding bottom, padding left. If you not use to blank"
+      },
+     {
+        "type": "header",
+        "content": "== Design Mobile Options"
+      },
+      {
+        "type": "text",
+        "id": "mg_mb",
+        "label": "Margin"
+      },
+      {
+        "type": "text",
+        "id": "pd_mb",
+        "label": "Padding"
+      }
+		
+		
+    ],
+    "presets": [
+      {
+        "name": "Blog posts (Style 2)",
+        "category": "Blog "
+      }
+    ]
+  }
+{% endschema %}

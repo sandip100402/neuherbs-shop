@@ -1,0 +1,346 @@
+{% assign admin_sp = request.design_mode %}
+{% assign col_left = section.settings.col_left %}
+{% assign col_right = section.settings.col_right %}
+{% assign text_align_hl = section.settings.text_align_hl %}
+{% assign text_align_hr = section.settings.text_align_hr %}
+<header>
+  <div class="header layout1 no-prepend-box-sticky">    
+    {% include 'currency-picker' %}
+    <div class="header logo-left_2l header-2-lines ">
+      <div class="header-main-wrap">
+        <div class="header-top">
+          <div class="container {% if section.settings.layout == 'full-width' %}{{section.settings.layout}} {% endif %}">
+            <div class="row">
+              
+              <div class="header-nav-mobile text_{{text_align_hl}} col-lg-{{col_left}} col-12 col-md-4">
+                <ul class="menu-language parent-list">
+                        {%if section.settings.header_use_currency%}
+                          <li class="language item-list" >
+                            {% include 'currency-picker' %}
+                            <a href="javascript:void(0);" class="toggle-submenu">                
+                              <span class="lang-currency">USD</span><span class="icon"><i class="icon-chevron-down"></i></span>
+                            </a>  
+                            <ul class="{{shop.currency}} list-currencies currency-lists child-list">         
+                              {% assign codes = 'USD,EUR,GBP,CAD,ARS,AUD,BBD,BDT,BSD,BHD,BRL,BOB,BND,BGN,ILS,MMK,KYD,CLP,CNY,COP,CRC,HRK,CZK,DKK,DOP,XCD,EGP,XPF,FJD,GHS,GTQ,GYD,GEL,HKD,HUF,ISK,INR,IDR,NIS,JMD,JPY,JOD,KZT,KES,KWD,LVL,LTL,MXN,MYR,MUR,MDL,MAD,MNT,MZN,ANG,NZD,NGN,NOK,OMR,PKR,PYG,PEN,PHP,PLN,QAR,RON,RUB,SAR,RSD,SCR,SGD,SYP,ZAR,KRW,LKR,SEK,CHF,TWD,THB,TZS,TTD,TRY,UAH,AED,UYU,VEB,VND,ZMK' | split: ',' %}
+                              {% assign supported_codes = settings.supported_currencies | split: ' ' %}  
+                              {% assign currency_default = shop.currency %}
+                              {% for code in supported_codes %}
+                              {% if codes contains code %}
+                              {% case code %} 
+                              {% when 'USD' %}
+                                <li data-value="{{ code }}" {% if currency_default == code %}class="active"{%endif%} ><a href="javascript:void(0);" class="{{ code }}"><span class="code_currency">{{ code }} - dollars</span></a></li>
+                                {% when 'EUR' %}
+                                <li data-value="{{ code }}" {% if currency_default == code %}class="active"{%endif%}><a href="javascript:void(0);" class="{{ code }}"><span class="code_currency">{{ code }} - Euro</span></a></li>
+                                {% when 'GBP'  %}
+                                <li data-value="{{ code }}" {% if currency_default == code %}class="active"{%endif%}><a href="javascript:void(0);" class="{{ code }}"><span class="code_currency">{{ code }} - British Pound</span></a></li>
+                                {% when 'BRL' %}
+                                <li data-value="{{ code }}" {% if currency_default == code %}class="active"{%endif%}><a href="javascript:void(0);" class="{{ code }}"><span class="code_currency">{{ code }} - Brazilian Real</span></a></li>
+                                {% when 'VND' %}
+                                <li data-value="{{ code }}" {% if currency_default == code %}class="active"{%endif%}><a href="javascript:void(0);" class="{{ code }}"><span class="code_currency">{{ code }} - Viet Nam</span></a></li>
+                                {% when 'DKK' %}
+                                <li data-value="{{ code }}" {% if currency_default == code %}class="active"{%endif%}><a href="javascript:void(0);" class="{{ code }}"><span class="code_currency">{{ code }} - Danish Krone</span></a></li>
+                                {% when 'ARS' %}
+                                <li data-value="{{ code }}" {% if currency_default == code %}class="active"{%endif%}><a href="javascript:void(0);" class="{{ code }}"><span class="code_currency">{{ code }} - Argentine Peso</span></a></li>
+                                {% when 'CNY' %}
+                                <li data-value="{{ code }}" {% if currency_default == code %}class="active"{%endif%}><a href="javascript:void(0);" class="{{ code }}"><span class="code_currency">{{ code }} - Yuan</span></a></li>
+                                {% else %}
+                                <li data-value="{{ code }}" {% if currency_default == code %}class="active"{%endif%}><a href="javascript:void(0);" class="{{ code }}"><span class="code_currency">{{ code }} </span></a></li>
+                              {% endcase %} 
+                              {% endif %}
+                              {% endfor %} 
+                            </ul>      
+                          </li>
+                        {% endif %}
+                          {%if section.settings.header_use_language%}
+                            <li class="item-list language-shop">
+                              <a href="javascript:void(0);" class="toggle-submenu">     
+                                <span>English</span>    
+                                <span class="icon"><i class="icon-chevron-down"></i></span>
+                              </a>
+                            </li>
+              {% endif %}
+              {% if  section.settings.phone_number != blank %}<li class="item-list phone_number">{{section.settings.phone_number}}</li>{% endif %}
+                      </ul> 
+                      {% assign type_social = section.settings.type_social | plus: 0 %}
+                      {%if section.settings.header_use_social%}
+                          
+                          {%- if type_social == 1 -%}
+                            {% include 'social_link' %}
+                          {%- else -%}
+                              {% include 'social-sharing' %}
+                          {%- endif -%}
+                      {% endif %}
+              </div>
+              <div class="header-logo hide-desktop flex-1">
+                {% if template contains 'index' %}
+                  {% if settings.logo != blank %}
+                      <a href="/" class="site-header__logo-image">
+                        {% capture image_size %}{{ settings.logo_max_width | escape }}x{% endcapture %}
+                        <img                                          
+                          src="{{ settings.logo | img_url: image_size, scale: 2 }}"                      
+                          alt="{{ logo_alt | escape }}"
+                          style="max-width: {{ settings.logo_max_width }}px; width:auto; height:auto;">
+                      <noscript>
+                        {% capture image_size %}{{ settings.logo_max_width | escape }}x{% endcapture %}
+                        <img src="{{ settings.logo | img_url: image_size }}"
+                            srcset="{{ settings.logo | img_url: image_size }} 1x, {{ settings.logo | img_url: image_size, scale: 2 }} 2x"
+                            alt="{{ settings.logo.alt | default: shop.name }}"
+                            style="max-width: {{ settings.logo_max_width }}px; width:auto; height:auto;">
+                      </noscript>
+                      </a>
+                    {% else %}
+                    <a class="site-title" href="/" itemprop="url"><span class="logo-default">{{ shop.name }}</span></a>
+                    {% endif %}
+                {%else%}
+                    {% if settings.logo != blank %}
+                      <a href="/" class="site-header__logo-image">
+                        {% capture image_size %}{{ settings.logo_max_width | escape }}x{% endcapture %}
+                        <img                                          
+                          src="{{ settings.logo | img_url: image_size, scale: 2 }}"                      
+                          alt="{{ logo_alt | escape }}"
+                          style="max-width: {{ settings.logo_max_width }}px; width:auto; height:auto;">
+                      <noscript>
+                        {% capture image_size %}{{ settings.logo_max_width | escape }}x{% endcapture %}
+                        <img src="{{ settings.logo | img_url: image_size }}"
+                            srcset="{{ settings.logo | img_url: image_size }} 1x, {{ settings.logo | img_url: image_size, scale: 2 }} 2x"
+                            alt="{{ settings.logo.alt | default: shop.name }}"
+                            style="max-width: {{ settings.logo_max_width }}px; width:auto; height:auto;">
+                      </noscript>
+                      </a>
+                    {% else %}
+                    <a class="site-title" href="/" itemprop="url"><span class="logo-default">{{ shop.name }}</span></a>
+                    {% endif %}
+                {%endif%}
+              </div>
+              <div class="header-logo hide-mobile col-md-3">
+                {% if template contains 'index' %}
+                  {% if settings.logo != blank %}
+                      <a href="/" class="site-header__logo-image">
+                        {% capture image_size %}{{ settings.logo_max_width | escape }}x{% endcapture %}
+                        <img                                          
+                          src="{{ settings.logo | img_url: image_size, scale: 2 }}"                      
+                          alt="{{ logo_alt | escape }}"
+                          style="max-width: {{ settings.logo_max_width }}px; width:auto; height:auto;">
+                      <noscript>
+                        {% capture image_size %}{{ settings.logo_max_width | escape }}x{% endcapture %}
+                        <img src="{{ settings.logo | img_url: image_size }}"
+                            srcset="{{ settings.logo | img_url: image_size }} 1x, {{ settings.logo | img_url: image_size, scale: 2 }} 2x"
+                            alt="{{ settings.logo.alt | default: shop.name }}"
+                            style="max-width: {{ settings.logo_max_width }}px; width:auto; height:auto;">
+                      </noscript>
+                      </a>
+                    {% else %}
+                    <a class="site-title" href="/" itemprop="url"><span class="logo-default">{{ shop.name }}</span></a>
+                    {% endif %}
+                {%else%}
+                    {% if settings.logo != blank %}
+                      <a href="/" class="site-header__logo-image">
+                        {% capture image_size %}{{ settings.logo_max_width | escape }}x{% endcapture %}
+                        <img                                          
+                          src="{{ settings.logo | img_url: image_size, scale: 2 }}"                      
+                          alt="{{ logo_alt | escape }}"
+                          style="max-width: {{ settings.logo_max_width }}px; width:auto; height:auto;">
+                      <noscript>
+                        {% capture image_size %}{{ settings.logo_max_width | escape }}x{% endcapture %}
+                        <img src="{{ settings.logo | img_url: image_size }}"
+                            srcset="{{ settings.logo | img_url: image_size }} 1x, {{ settings.logo | img_url: image_size, scale: 2 }} 2x"
+                            alt="{{ settings.logo.alt | default: shop.name }}"
+                            style="max-width: {{ settings.logo_max_width }}px; width:auto; height:auto;">
+                      </noscript>
+                      </a>
+                    {% else %}
+                    <a class="site-title" href="/" itemprop="url"><span class="logo-default">{{ shop.name }}</span></a>
+                    {% endif %}
+                {%endif%}
+              </div>  
+              <div class="search-bar pd-0 col hide-mobile ">
+                <div  class="aloSearch header-search "> 
+                  <div class="laber_mini_cart">
+                    <div class="mini_cart_wrap laber_search">
+                      <form action="{{ routes.search_url }}" method="post" class="search_header mini_search_frm pr js_frm_search" role="search">
+                        <input type="hidden" name="type" value="product">
+                        <input type="hidden" name="options[unavailable_products]" value="last">
+                        <input type="hidden" name="options[prefix]" value="none">
+                        
+                        <div class="row">
+                          <div class="frm_search_input col">
+                            <input class="search_header__input js_iput_search" autocomplete="off" type="text" name="q" placeholder="{{ 'general.search.placeholder' | t }}">
+                          </div>
+                          
+                          <div class="col-auto btn_search">
+                            <button class="btn search_header__submit js_btn_search{% if settings.ajax_search %} pe_none{% endif %}" type="submit">
+                            <span>Go</span>{% comment %} {{ 'general.search.btn' | t }} {% endcomment %}
+                            </button> 
+                          </div>
+                        </div>  
+                        
+                        {%comment%}<div class="ld_bar_search"></div>{%endcomment%}
+                      </form> 
+                      <div class="mini_cart_content fixcl-scroll widget">
+                        <div class="fixcl-scroll-content product_list_widget">
+                          <div class="skeleton_wrap skeleton_js d-none">
+                            <div class="loading_search">
+                              <div class="jloading">
+                              <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="js_prs_search">
+                            <div class="row">
+                            {%- if collection != blank  -%}
+                            {%- for product in collection.products limit:limit -%}
+                            {%- render 'product_ajax_js',product:product,on_sale_txt:on_sale_txt,save_js:save_js -%}
+                            {%- endfor -%}
+
+                            {%- if collection.all_products_count > limit -%}
+
+                            <a href="/collections/all" class="btn fwsb detail_link">{{ 'general.search.view_all' | t }} <i class="lnr lnr-arrow-right"></i></a>
+
+                            {%- endif -%}
+                            {%- endif -%}
+                            </div> 
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="header-top-meta text_{{text_align_hr}} col-lg-{{col_left}} col-3 col-md-4">
+                <ul class="header-control">  
+                  {% if section.settings.header_use_search_home %}
+                  <li class="header_search hide-desktop">
+                    <a href="/search" class="header-search push_side header-icon" data-id="#search_pupop" title="{{'general.search.title' | t}}">
+                      <i class="icon-search"></i>   
+                    </a>                        
+                  </li>   
+                  {% endif %}
+                  {%if section.settings.header_use_account%}
+                    
+                    <li class="signin item-list display-mobile">
+                      <a href="/account/login" data-id="#login_pupop" class="push_side header-icon" title="{{'customer.login.log_in' | t}}" >
+                      <svg width="23" height="23" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg" id="svgkp">
+                        <path d="M22.9129 12.935L13.7571 23.0474C13.5348 23.2929 13.1284 23.1084 13.1669 22.7794L14.0816 14.9731H10.6991C10.4034 14.9731 10.2484 14.6219 10.4478 14.4035L20.3133 3.59739C20.5589 3.32834 20.9984 3.58134 20.8891 3.92887L18.2354 12.3664H22.6607C22.9557 12.3664 23.1109 12.7163 22.9129 12.935Z" fill="#FEA203"></path>
+                        <path id="svgkp-path" fill-rule="evenodd" clip-rule="evenodd" d="M16.6079 5.35819C16.4805 5.1933 16.3421 5.03582 16.1932 4.8869C15.2702 3.96387 14.0183 3.44531 12.7129 3.44531C11.4075 3.44531 10.1556 3.96387 9.2326 4.8869C8.30957 5.80993 7.79102 7.06183 7.79102 8.36719C7.79102 9.67255 8.30957 10.9244 9.2326 11.8475C9.48368 12.0986 9.75909 12.3197 10.0533 12.5086L11.0235 11.4503C10.7335 11.2914 10.4649 11.0911 10.227 10.8531C9.56766 10.1938 9.19727 9.29959 9.19727 8.36719C9.19727 7.43479 9.56766 6.54057 10.227 5.88127C10.8863 5.22196 11.7805 4.85156 12.7129 4.85156C13.6453 4.85156 14.5395 5.22196 15.1988 5.88127C15.3636 6.04604 15.5103 6.22549 15.6377 6.41654L16.6079 5.35819ZM20.6413 18.6497L19.6746 19.7132C20.1676 20.4122 20.4473 21.2264 20.4473 22.0781V23.8359C20.4473 24.2243 20.7621 24.5391 21.1504 24.5391C21.5387 24.5391 21.8535 24.2243 21.8535 23.8359V22.0781C21.8535 20.7863 21.4016 19.6103 20.6413 18.6497ZM12.3111 17.5078H10.3026C7.27113 17.5078 4.97852 19.6394 4.97852 22.0781V23.8359C4.97852 24.2243 4.66372 24.5391 4.27539 24.5391C3.88707 24.5391 3.57227 24.2243 3.57227 23.8359V22.0781C3.57227 18.6922 6.67684 16.1016 10.3026 16.1016H12.4885L12.3111 17.5078Z" fill="currentColor" stroke="currentColor"></path>
+                      </svg>
+                      </a>
+                    </li>
+
+                    
+                  {% endif %}
+                  
+                  
+                  
+                  {% if section.settings.header_use_wishlist_home %}
+                  <li class="display-mobile display-mobile"> 
+                    <a href="javascript:void(0);" class="push_side header-icon" data-id="#wishlist_popup" title="{{'general.wishlist.title' | t}}">
+                      <i class="icon-heart"></i>
+                      <span class="header__counter" data-js-wishlist-count="0">0</span>
+                    </a>                        
+                  </li>
+                  {% endif %}
+                  {% if section.settings.header_use_compare_home %}
+                  <li class="display-mobile display-mobile">
+                    <a href="javascript:void(0);" class="push_side header-icon" data-js-popup-button="compare-full" title="{{'general.compare.title' | t}}">
+                      <i class="icon-layers" aria-hidden="true"></i>
+                      <span class="header__counter" data-js-compare-count="0">0</span>
+                    </a>
+                  </li>
+                  {% endif %}
+                  {% if section.settings.header_use_cart_home %}
+                    <li class="box-minicart">
+                      {% include'header-cart'%}
+                    </li>
+                  {% endif %}
+                  {% if section.settings.button_tell_me %}
+                    <li class="button_tell_me display-mobile">
+                      <a href="javascript:void(0);" class="push_side header-icon"  data-id="#tell_me" title="{{'general.top_header.button_tell_me' | t}}">
+                      <i class=" icon-align-right" aria-hidden="true"></i>
+                    </a>
+                    </li>
+                  {% endif %}
+                  
+                
+                </ul>
+              </div>
+            </div>
+            <div  class="aloSearch header-search hide-desktop"> 
+                <div class="laber_mini_cart">
+                  <div class="mini_cart_wrap laber_search">
+                    <form action="{{ routes.search_url }}" method="post" class="search_header mini_search_frm pr js_frm_search" role="search">
+                      <input type="hidden" name="type" value="product">
+                      <input type="hidden" name="options[unavailable_products]" value="last">
+                      <input type="hidden" name="options[prefix]" value="none">
+                      
+                      <div class="row">
+                        <div class="frm_search_input col">
+                          <input class="search_header__input js_iput_search" autocomplete="off" type="text" name="q" placeholder="{{ 'general.search.placeholder' | t }}">
+                        </div>
+                        
+                        <div class="col-auto btn_search">
+                          <button class="search_header__submit js_btn_search{% if settings.ajax_search %} pe_none{% endif %}" type="submit">
+                            <span>Go</span>{% comment %} {{ 'general.search.btn' | t }} {% endcomment %}
+                          </button> 
+                        </div>
+                      </div>  
+                      
+                      {%comment%}<div class="ld_bar_search"></div>{%endcomment%}
+                    </form> 
+                    <div class="mini_cart_content fixcl-scroll widget">
+                      <div class="fixcl-scroll-content product_list_widget">
+                        <div class="skeleton_wrap skeleton_js d-none">
+                          <div class="loading_search">
+                            <div class="jloading">
+                            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="js_prs_search">
+                          <div class="row">
+                          {%- if collection != blank  -%}
+                          {%- for product in collection.products limit:limit -%}
+                          {%- render 'product_ajax_js',product:product,on_sale_txt:on_sale_txt,save_js:save_js -%}
+                          {%- endfor -%}
+
+                          {%- if collection.all_products_count > limit -%}
+
+                          <a href="/collections/all" class="btn fwsb detail_link">{{ 'general.search.view_all' | t }} <i class="lnr lnr-arrow-right"></i></a>
+
+                          {%- endif -%}
+                          {%- endif -%}
+                          </div> 
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> 
+          </div>
+        </div>  
+        <div class=" navigationMenu hide-mobile alo-background-color" style="--alo-background-color:#ffffff">
+            <div class="container full-width  ">
+              <div class="row row-0">
+                <div class="ps-static col">
+                        {%- render 'menu',se_blocks:se_blocks,tp_blocks:tp_blocks -%}
+                </div>
+            </div>
+          </div>
+        </div>
+      
+      </div>
+    </div>
+  </div>
+  
+</header>
+  {%- if admin_sp -%}
+      {%- assign arr_sub = 'link,link2,banner,html,pr,cat' -%}
+      {%- for block in se_blocks %}
+      	<div {% if arr_sub contains block.type %}
+             {% assign id_data = block.id %} {{ block.shopify_attributes }}{% else %}{% assign id_data2 = block.id %}{% endif %}id="bkjs_{{id_data}}" data-id='{{id_data2}}'></div>{% endfor -%}
+  {%- endif -%}
+
+<style scoped>
+  .header .header-top{
+    background-color:{{section.settings.background_header}};
+  }
+</style> 

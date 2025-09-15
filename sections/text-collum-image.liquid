@@ -1,0 +1,165 @@
+<div id="shopify-section-{{ section.id }}" class="shopify-section cms_section type_gallery laber_text-column-with-image">
+  <section id="laber_{{ section.id }}" class="text-column-with-image custom-section-top-home w-full h-full md:hidden">
+    <div id="home-slider-visible slick-carousel" class="container full-width">
+      <div class="grid-slider content_section js_carousel"
+        data-wrapper="#shopify-section-{{ section.id }}"
+        data-adaptive-height="false"
+        data-autoplay="{{ section.settings.autoplay }}"
+        data-autoplay-speed="{{ section.settings.autoplay_speed }}"
+        data-arrows="{{ section.settings.arrows }}"
+        data-center-mode="false"
+        data-dots="{{ section.settings.dots }}"
+        data-fade="false"
+        data-infinite="{{ section.settings.infinite }}"
+        data-padding="5"
+        data-rows="1"
+        data-slides-to-show="{{ section.settings.slides_to_show }}"
+        data-slides-to-scroll="1"
+        data-speed="300"
+        data-vertical="false"
+        data-vertical-swiping="false"
+        data-responsive='[
+          {"breakpoint":1921,"settings":{"slidesToShow":{{ section.settings.slides_to_show }}}},
+          {"breakpoint":1920,"settings":{"slidesToShow":{{ section.settings.slides_to_show }}}},
+          {"breakpoint":1480,"settings":{"slidesToShow":{{ section.settings.slides_to_show }}}},
+          {"breakpoint":1200,"settings":{"slidesToShow":{{ section.settings.slides_to_show }}}},
+          {"breakpoint":992,"settings":{"slidesToShow":{{ section.settings.slides_to_show_tablet }}}},
+          {"breakpoint":768,"settings":{"slidesToShow":{{ section.settings.slides_to_show_tablet }}}},
+          {"breakpoint":576,"settings":{"slidesToShow":{{ section.settings.slides_to_show_mobile }}}},
+          {"breakpoint":481,"settings":{"slidesToShow":{{ section.settings.slides_to_show_mobile }}}},
+          {"breakpoint":361,"settings":{"slidesToShow":{{ section.settings.slides_to_show_mobile }}}},
+          {"breakpoint":1,"settings":{"slidesToShow":1}}
+        ]'
+        data-append-arrows=".arrows_{{ section.id }}"
+        data-append-dots=".dots_{{ section.id }}">
+        
+        {% for block in section.blocks %}
+          <div class="alo-item text_column_with_img">
+            <a href="{{ block.settings.link | default: '#' }}" target="_self">
+              <div class="images" style="min-height:60px">
+                {% if block.settings.image %}
+                  <div class="alo-image overflow-hidden alo-border-radius ratio w-full h-full"
+                       style="--alo-border-radius:0px; --ratio-percent:100%;">
+                    <img class="desktop_about_us_img"
+                         src="{{ block.settings.image | img_url: 'master' }}"
+                         alt="{{ block.settings.title | escape }}">
+                  </div>
+                {% endif %}
+              </div>
+            </a>
+            <div class="text-content">
+              <h3 class="icons">{{ block.settings.title }}</h3>
+            </div>
+          </div>
+        {% endfor %}
+        
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Text Column Image Slider",
+  "class": "text-column-with-image",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Enable autoplay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Autoplay speed (ms)",
+      "min": 1000,
+      "max": 9000,
+      "step": 500,
+      "default": 3000
+    },
+    {
+      "type": "checkbox",
+      "id": "arrows",
+      "label": "Show arrows",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "dots",
+      "label": "Show dots",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "infinite",
+      "label": "Infinite loop",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "slides_to_show",
+      "label": "Slides to show (desktop)",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "slides_to_show_tablet",
+      "label": "Slides to show (tablet)",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "slides_to_show_mobile",
+      "label": "Slides to show (mobile)",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Column Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Category name"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "Text Column with Image Slider",
+      "category": "Custom",
+      "blocks": [
+        { "type": "item", "settings": { "title": "Fitness" } },
+        { "type": "item", "settings": { "title": "Weight Loss" } },
+        { "type": "item", "settings": { "title": "Skin Care" } },
+        { "type": "item", "settings": { "title": "Hair" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
