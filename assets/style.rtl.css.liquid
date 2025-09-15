@@ -1,0 +1,14 @@
+{%- assign productionMode = settings.production_mode -%}
+{%- capture styleCss -%}
+/*================ Style for layout RTL ================*/
+
+body.rtl {
+    direction: rtl;
+}
+{%- endcapture -%}
+{%- if productionMode -%}
+    {%- assign paragraphs = styleCss | newline_to_br | split: '<br />' -%}
+    {%- for paragraph in paragraphs %}{{- paragraph | strip -}}{% endfor -%}
+{%- else -%}
+    {{styleCss}}
+{%- endif -%}

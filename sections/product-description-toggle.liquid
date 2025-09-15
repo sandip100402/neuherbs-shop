@@ -1,0 +1,93 @@
+<style>
+.product-description-toggle h3.description-toggle-title {
+  margin-bottom: 15px;
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.product-description-toggle .meta_content_wrapper {
+  margin: 0 0 20px;
+}
+
+.product-description-toggle .short-description,
+.product-description-toggle .full-description {
+  text-align: left;
+  font-size: 16px;
+}
+
+.product-description-toggle .short-description {
+  display: inline; /* short stays inline */
+}
+
+.product-description-toggle .full-description {
+  display: none; /* hidden by default */
+}
+
+.product-description-toggle .moreless-button {
+  font-weight: 600;
+  text-decoration: none;
+  color: #167a62;
+  cursor: pointer;
+  display: inline; /* keep inline with text */
+  margin-left: 5px;
+  font-size: 16px;
+}
+</style>
+
+{%- if product.description != blank -%}
+<div class="product-description-toggle container">
+    <div class="product__description rte quick-add-hidden">
+      <h3 class="description-toggle-title">Product Description</h3>
+      <div class="meta_content_wrapper">
+        <div class="meta_content text-left">
+          
+          <!-- Short part (plain text truncated) -->
+          <span class="short-description">
+            {{ product.description | strip_html | truncatewords: 50 }}
+          </span>
+
+          <!-- Full hidden part (HTML intact) -->
+          <span class="full-description">
+            {{ product.description }}
+          </span>
+
+          <!-- Toggle button -->
+          <span class="moreless-button">Read more...</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const fullDescription = document.querySelector('.full-description');
+        const shortDescription = document.querySelector('.short-description');
+        const moreLessButton = document.querySelector('.moreless-button');
+
+        moreLessButton.addEventListener('click', function() {
+          if (fullDescription.style.display === 'none' || fullDescription.style.display === '') {
+            fullDescription.style.display = 'block';
+            shortDescription.style.display = 'none';
+            moreLessButton.textContent = 'Read less...';
+          } else {
+            fullDescription.style.display = 'none';
+            shortDescription.style.display = 'inline';
+            moreLessButton.textContent = 'Read more...';
+          }
+        });
+      });
+    </script>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product Des Toggle",
+  "settings": [],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Product Description Toggle"
+    }
+  ]
+}
+{% endschema %}

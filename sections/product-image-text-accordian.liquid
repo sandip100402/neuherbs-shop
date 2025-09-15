@@ -1,0 +1,240 @@
+{% comment %}
+  Section: Product Accordion using Metaobject (productaccordionitem)
+{% endcomment %}
+
+<style>
+.accordion-section {
+  background: #E4F0EA;
+  font-family: sans-serif;
+  margin-top: {{ section.settings.margin_top_desktop }}px;
+  margin-bottom: {{ section.settings.margin_bottom_desktop }}px;
+}
+@media (max-width: 767px) {
+  .accordion-section {
+    margin-top: {{ section.settings.margin_top_mobile }}px;
+    margin-bottom: {{ section.settings.margin_bottom_mobile }}px;
+  }
+}
+
+.accordion-title {
+    margin: 0;
+    font-size: 25px;
+    line-height: 80px;
+    font-family: "museo 300";
+    text-align: center;
+    color: #167a61;
+}
+
+.accordion {
+  background-color: #E4F0EA;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  outline: none;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  transition: background-color 0.3s ease;
+  padding: 15px 30px;
+  margin-bottom: 15px;
+  font-family: "MuseoSans-500" !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 0px;
+  font-size: 15px;
+  color: #167a61;
+}
+
+.accordion:hover {
+  background-color: #d6e6db;
+}
+
+.accordion:after {
+  content: '+';
+  font-size: 20px;
+  color: #166e5f;
+  transition: transform 0.3s ease;
+}
+
+.accordion.active:after {
+  content: '-';
+}
+
+.panel {
+  max-height: 0;
+  overflow: hidden;
+  background-color: #E4F0EA;
+  transition: max-height 0.35s ease;
+  font-size: 15px;
+}
+
+.panel-content {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+  width: 85%;
+  margin: auto;
+}
+
+.panel-block {
+  text-align: center;
+  flex: 1 1 200px;
+  max-width: 100%;
+}
+
+.panel-block img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.panel-block h4 {
+  font-weight: bold;
+  margin: 10px 0 5px;
+}
+
+.panel-block p {
+  font-size: 14px;
+  color: #333;
+}
+
+.single-image-panel {
+  padding: 20px;
+  text-align: center;
+}
+
+.single-image-panel img {
+  max-width: 100%;
+  width: 100%;
+  border-radius: 10px;
+  object-fit: contain;
+}
+</style>
+
+{% if product.metafields.custom.image_with_text_accordian != blank %}
+<div class="container">
+  <div class="accordion-section">
+    <div class="accordion-title">{{ section.settings.section_title }}</div>
+
+    {% for item in product.metafields.custom.image_with_text_accordian.value %}
+      <button class="accordion{% if forloop.first %} active{% endif %}">{{ item.accordion_title }}</button>
+
+      <div class="panel" style="{% if forloop.first %}max-height: 2000px;{% endif %}">
+        {% if item.single_image_desktop != blank %}
+          <div class="single-image-panel">
+            <picture>
+              {% if item.single_image_mobile != blank %}
+                <source media="(max-width: 767px)" srcset="{{ item.single_image_mobile | image_url: width: 400 }}">
+              {% endif %}
+              {% if item.single_image_desktop != blank %}
+                <source media="(min-width: 768px)" srcset="{{ item.single_image_desktop | image_url: width: 800 }}">
+              {% endif %}
+              <img src="{{ item.single_image_desktop | image_url: width: 800 }}" alt="{{ item.accordion_title }}">
+            </picture>
+          </div>
+        {% else %}
+          <div class="panel-content">
+            {% for i in (1..3) %}
+              {% assign img_key = "image_" | append: i %}
+              {% assign heading_key = "heading_" | append: i %}
+              {% assign text_key = "text_" | append: i %}
+
+              {% assign img = item[img_key] %}
+              {% assign heading = item[heading_key] %}
+              {% assign text = item[text_key] %}
+
+              {% if img != blank or heading != blank or text != blank %}
+                <div class="panel-block">
+                  {% if img != blank %}
+                    <img src="{{ img | image_url: width: 300 }}" alt="{{ heading }}">
+                  {% endif %}
+                  {% if heading != blank %}
+                    <h4>{{ heading }}</h4>
+                  {% endif %}
+                  {% if text != blank %}
+                    <p>{{ text }}</p>
+                  {% endif %}
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const accordions = document.querySelectorAll(".accordion");
+  accordions.forEach(acc => {
+    acc.addEventListener("click", function () {
+      this.classList.toggle("active");
+      const panel = this.nextElementSibling;
+      if (panel.style.maxHeight) {
+        panel.style.maxHeight = null;
+      } else {
+        panel.style.maxHeight = panel.scrollHeight + "px";
+      }
+    });
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Product Image Accor",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "MORE PRODUCT INFO"
+    },
+    {
+      "type": "range",
+      "id": "margin_top_desktop",
+      "label": "Desktop Top Margin",
+      "default": 30,
+      "min": 0,
+      "step": 2,
+      "max": 200
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom_desktop",
+      "label": "Desktop Bottom Margin",
+      "default": 30,
+      "min": 0,
+      "step": 2,
+      "max": 200
+    },
+    {
+      "type": "range",
+      "id": "margin_top_mobile",
+      "label": "Mobile Top Margin",
+      "default": 20,
+      "min": 0,
+      "step": 2,
+      "max": 100
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom_mobile",
+      "label": "Mobile Bottom Margin",
+      "default": 20,
+      "step": 2,
+      "min": 0,
+      "max": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Image With Text Accordion"
+    }
+  ]
+}
+{% endschema %}

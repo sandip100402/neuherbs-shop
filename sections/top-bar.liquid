@@ -1,0 +1,115 @@
+{% schema %}
+{
+  "name": "Top Bar Slider",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#167a62"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link Hover Color",
+      "default": "#ffb800"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "offer",
+      "name": "Offer Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "offer_text",
+          "label": "Offer Text",
+          "default": "🎉 Get 10% off on Order Rs.1799 | Code: SALE10"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [
+    {
+      "name": "Default Top Bar Slider"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+:root {
+  --bg-top-bar: {{ section.settings.background_color }};
+  --color-text: {{ section.settings.text_color }};
+  --color-link: {{ section.settings.link_color }};
+  --color-link-hover: {{ section.settings.link_hover_color }};
+}
+</style>
+
+<div id="laber_{{section.id}}" class="shopify-section cms-top-header cms-top-bar"
+     style="background-color: {{ section.settings.background_color }};">
+  <div class="topbar">
+    <div class="container">
+      <div class="text-slider"
+           style="color: {{ section.settings.text_color }};
+                  --color-link: {{ section.settings.link_color }};
+                  --color-link-hover: {{ section.settings.link_hover_color }};">
+        <div class="col-12 col-md-6">
+          <div class="content_section slick-carousel">
+           <div class="grid-slider js_carousel laber-slick-carousel grid-init"
+                data-adaptive-height="false"
+                data-autoplay="true"
+                data-autoplay-speed="6000"
+                data-arrows="false"
+                data-center-mode="false"
+                data-dots="false"
+                data-fade="false"
+                data-infinite="false"
+                data-padding="10"
+                data-rows="1"
+                data-slides-to-show="1"
+                data-slides-to-scroll="1"
+                data-speed="600"
+                data-vertical="false"
+                data-vertical-swiping="false"
+                data-spacing="20"
+                data-append-arrows=".arrows_top-bar"
+                data-append-dots=".dots_top-bar"
+                data-responsive='[
+                  {"breakpoint": 1024, "settings": {"slidesToShow": 1, "slidesToScroll": 1}},
+                  {"breakpoint": 768, "settings": {"slidesToShow": 1, "slidesToScroll": 1}},
+                  {"breakpoint": 480, "settings": {"slidesToShow": 1, "slidesToScroll": 1}}
+                ]'>
+
+
+              <div class="slick-list draggable">
+                <div class="slick-track">
+                  {% for block in section.blocks %}
+                    <div class="item-text alo-item slick-slide" data-slick-index="{{ forloop.index0 }}">
+                      <p>{{ block.settings.offer_text }}</p>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

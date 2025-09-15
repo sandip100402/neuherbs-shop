@@ -1,0 +1,130 @@
+<div id="shopify-section-newsletter" class="shopify-section laber-newsletter">
+  <section class="footer_newsletter_main_container" id="laber_newsletter" style="background-color: {{ section.settings.newsletter_bg }};"> 
+    <div class="container text_left">
+
+      <aside class="laber_mail news_main_container" style="--color-title:{{ section.settings.newsletter_title_color }};--color-subtitle:{{ section.settings.newsletter_subtitle_color }};--color-text:{{ section.settings.newsletter_text_color }};">
+        
+        <div class="wrap_title footer_new_later_main medium">
+           <div class="brand_logo_footer_main">
+            {% if section.settings.newsletter_logo %}
+              <img class="footer_logo_img_main" src="{{ section.settings.newsletter_logo | img_url: '200x' }}">
+            {% endif %}
+          </div>
+          <div class="h3 section-subtitle alo-text-transform" style="--alo-text-transform:none">{{ section.settings.newsletter_title }}</div>    
+          <h3 class="section-title footer_newslatter_heading_main alo-text-transform" style="--alo-text-transform:none">{{ section.settings.newsletter_subtitle }}</h3>  
+          
+          <div class="content hidden">{{ section.settings.newsletter_hidden_text }}</div>
+        </div>
+        
+        <div class="newsletter footer_newslatter_main_contant">
+          <form method="post" action="/contact#contact_form" id="contact_form" accept-charset="UTF-8" class="newsletter-form-footer" data-persist-bound="true">
+            <input type="hidden" name="form_type" value="customer">
+            <input type="hidden" name="utf8" value="✓">
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <div class="mc4wp-form-fields">
+              <div class="signup-newsletter-form">
+                <div class="col pd-0">
+                  <div class="i-email">
+                    <input type="email" name="contact[email]" placeholder="{{ section.settings.newsletter_placeholder }}" value="" class="input-text alo-border-color" required="required" style="--alo-border-color:{{ section.settings.input_border_color }};">
+                  </div>
+                </div>
+                 <div class="col-auto pd-0">
+                  <button type="submit" class="submit-btn truncate" aria-label="submit" style="--color-text-btn:{{ section.settings.button_text_color }};--color-bg-btn:{{ section.settings.button_bg_color }};">
+                      <span>➔</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div> 	
+      </aside>
+      
+    </div>
+    <hr class="footer_line_desk">
+</section>
+</div>
+
+
+{% schema %}
+{
+  "name": "Newsletter Section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "newsletter_logo",
+      "label": "Newsletter Logo"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Newsletter Title",
+      "default": "OUR NEWSLETTER"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_subtitle",
+      "label": "Newsletter Subtitle",
+      "default": "Be the first to know about new products, exclusive offers, and much more."
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_hidden_text",
+      "label": "Hidden Text",
+      "default": "Subscribe to the mailing list to receive updates on new arrivals & other discount information."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Email Placeholder",
+      "default": "Enter Your Email"
+    },
+    {
+      "type": "color",
+      "id": "newsletter_bg",
+      "label": "Background Color",
+      "default": "#167a62"
+    },
+    {
+      "type": "color",
+      "id": "newsletter_title_color",
+      "label": "Title Color",
+      "default": "#f3f9f7"
+    },
+    {
+      "type": "color",
+      "id": "newsletter_subtitle_color",
+      "label": "Subtitle Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "newsletter_text_color",
+      "label": "Text Color",
+      "default": "#167a62"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Input Border Color",
+      "default": "#a9c9be"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background Color",
+      "default": "#167a62"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter Section"
+    }
+  ]
+}
+{% endschema %}

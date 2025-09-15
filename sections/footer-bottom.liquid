@@ -1,0 +1,50 @@
+<div id="shopify-section-footer-bottom" class="shopify-section footer-bottom">
+<section id="laber_footer-bottom" style="--color-border:{{ section.settings.border_color }};background-color:{{ section.settings.bg_color }};">
+   <hr class="footer_line">
+   <div class="full-width">
+     <div class="row">
+        <div class="footer-iteam col-12 mb-10" style="--alo-position:center">
+          <div class="menu_footer">
+            {% if section.settings.legal_menu != blank %}
+              <ul class="menu">
+                {% for link in linklists[section.settings.legal_menu].links %}
+                  <li class="menu-item">
+                    <a class="alo-color alo-color-hover" style="--alo-color:{{ section.settings.link_color }};--alo-color-hover:{{ section.settings.link_hover_color }};" href="{{ link.url }}">{{ link.title }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="footer-iteam col-12 mb-0" style="--alo-position:center;"> 
+          <div class="copyright alo-color" style="--alo-color:{{ section.settings.text_color }};--color-link-footer:{{ section.settings.text_color }};">
+            <p>{{ section.settings.copyright_text }}</p>
+          </div>
+        </div>
+     </div>
+   </div>
+</section>
+</div>
+<style>
+:root {
+  --color-text-footer:#f3f9f7;
+}
+</style>
+{% schema %}
+{
+  "name": "Footer Bottom",
+  "settings": [
+    { "type": "color", "id": "bg_color", "label": "Background Color", "default": "#127a61" },
+    { "type": "color", "id": "border_color", "label": "Border Color", "default": "#167a62" },
+    { "type": "color", "id": "text_color", "label": "Text Color", "default": "#ffffff" },
+    { "type": "color", "id": "link_color", "label": "Link Color", "default": "#f4f4f4" },
+    { "type": "color", "id": "link_hover_color", "label": "Link Hover Color", "default": "#ffffff" },
+    { "type": "link_list", "id": "legal_menu", "label": "Legal Menu" },
+    { "type": "text", "id": "copyright_text", "label": "Copyright Text", "default": "© 2025 Neuherbs. All Rights Reserved." }
+  ],
+  "presets": [
+    { "name": "Footer Bottom" }
+  ]
+}
+{% endschema %}

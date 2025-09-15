@@ -1,0 +1,111 @@
+{% if product.metafields.custom.product_accordion_items != blank %}
+<div class="product-faq-accordion container">
+  {% if section.settings.section_title != blank %}
+    <h2 class="product-faq-section-title">{{ section.settings.section_title }}</h2>
+  {% endif %}
+  
+  {% for block in product.metafields.custom.product_accordion_items.value %}
+    <div class="product-accordion-item {% if forloop.first %}active{% endif %}">
+      <div class="product-accordion-header">
+        {{ block.question }}
+        <span class="product-accordion-icon">+</span>
+      </div>
+      <div class="product-accordion-panel">{{ block.answer }}</div>
+    </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<style>
+.product-faq-accordion {
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: sans-serif;
+}
+.product-faq-section-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: #166e5f;
+}
+.product-accordion-item {
+    margin-bottom: 15px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 0px;
+    font-family: MuseoSans-500 !important;
+    background: rgb(248, 248, 248);
+    padding: 15px 30px;
+}
+.product-accordion-header {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 22px;
+    font-family: MuseoSans-500 !important;
+}
+.product-accordion-header:hover {
+  color: #166e5f;
+}
+.product-accordion-icon {
+  font-size: 22px;
+  color: #166e5f;
+  transition: transform 0.3s ease;
+}
+.product-accordion-item.active .product-accordion-icon {
+  transform: rotate(45deg);
+}
+.product-accordion-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  padding: 0;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--color-text-body);
+}
+.product-accordion-item.active .product-accordion-panel {
+  max-height: 1000px;
+  padding: 15px 0px 0px;
+}
+</style>
+
+{% javascript %}
+document.addEventListener("DOMContentLoaded", function() {
+  const headers = document.querySelectorAll(".product-faq-accordion .product-accordion-header");
+  headers.forEach(header => {
+    header.addEventListener("click", function() {
+      const item = this.closest(".product-accordion-item");
+      // Only one open at a time
+    //   document.querySelectorAll(".product-accordion-item").forEach(i => {
+    //     if (i !== item) i.classList.remove("active");
+    //   });
+      item.classList.toggle("active");
+    });
+  });
+});
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Product FAQ Accordion",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Frequently Asked Questions"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product FAQ Accordion"
+    }
+  ]
+}
+{% endschema %}

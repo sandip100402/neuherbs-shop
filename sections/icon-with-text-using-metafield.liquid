@@ -1,0 +1,87 @@
+<style>
+.icon-with-text-block {
+    background: #f8f8f8;
+    padding-bottom: 16px;
+    padding-top: 20px;
+    margin-top: 16px;
+    margin-bottom: 30px;
+}
+
+.icon-with-text-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.icon-with-text-item {
+    text-align: center;
+    max-width: 25%;
+    margin: 0;
+}
+
+.icon-with-text-img {
+    width: 50px;
+    border: 1px solid #167a62;
+    border-radius: 100%;
+    padding: 5px;
+}
+
+.icon-with-text-text {
+    margin: 10px 0 0;
+    font-size: 16px;
+    color: #212121;
+    line-height: 20px;
+    font-family: "MuseoSans-500" !important;
+}
+
+/* Responsive: wrap items naturally */
+@media (max-width: 1024px) {
+    .icon-with-text-wrapper {
+        justify-content: center; /* center items on smaller screens */
+    }
+}
+
+@media (max-width: 749px) {
+    .icon-with-text-wrapper {
+        align-items: center;
+    }
+}
+</style>
+
+{% if product.metafields.custom.icon_with_text != blank %}
+<div class="icon-with-text-block">
+    <div class="icon-with-text-wrapper container">
+      {% for block in product.metafields.custom.icon_with_text.value %}
+        <div class="icon-with-text-item">
+          
+          {% if block.icon != blank %}
+            <img 
+              src="{{ block.icon | image_url: width: 60 }}" 
+              alt="{{ block.title }}" 
+              class="icon-with-text-img"
+            >
+          {% endif %}
+          
+          {% if block.title != blank %}
+            <p class="icon-with-text-text">{{ block.title }}</p>
+          {% endif %}
+          
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Icon With Text Using Meta",
+  "tag": "section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Icon With Text Using Metafield"
+    }
+  ]
+}
+{% endschema %}

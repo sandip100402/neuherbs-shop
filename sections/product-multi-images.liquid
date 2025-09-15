@@ -1,0 +1,103 @@
+
+{% style %}
+.multi-images-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top:{{ section.settings.desktop_margin_top }};
+  margin-bottom: {{ section.settings.desktop_margin_bottom }};
+}
+
+.multi-images-wrapper picture {
+  display: block;
+  width: 100%;
+}
+
+.multi-images-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+@media screen and only (max-width:768px;){
+  .multi-images-wrapper {
+    margin-top:{{ section.settings.mobile_margin_top }};
+    margin-bottom: {{ section.settings.mobile_margin_bottom }};
+  }
+}
+{% endstyle %}
+
+{% if product.metafields.custom.multi_images != blank %}
+<div class="multi-images-wrapper">
+    {% for block in product.metafields.custom.multi_images.value %}
+      {% if block.desktop_image != blank or block.mobile_image != blank %}
+        <picture>
+          {% if block.mobile_image != blank %}
+            <source 
+              media="(max-width: 768px)" 
+              srcset="{{ block.mobile_image | image_url: width: 800 }}"
+            >
+          {% endif %}
+          {% if block.desktop_image != blank %}
+            <img 
+              src="{{ block.desktop_image | image_url: width: 1200 }}" 
+              alt=""
+              loading="lazy"
+            >
+          {% endif %}
+        </picture>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endif %}
+{% schema %}
+{
+  "name": "Product Multi Images",
+  "settings": [
+    {
+      "type": "range",
+      "id": "desktop_margin_top",
+      "label": "Desktop Margin Top",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "desktop_margin_bottom",
+      "label": "Desktop Margin Bottom",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_margin_top",
+      "label": "Mobile Margin Top",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_margin_bottom",
+      "label": "Mobile Margin Bottom",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Multi Images",
+    }
+  ]
+}
+{% endschema %}

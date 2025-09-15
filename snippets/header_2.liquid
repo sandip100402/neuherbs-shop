@@ -1,0 +1,189 @@
+{% assign admin_sp = request.design_mode %}
+{% assign col_right = section.settings.col_right %}
+{% assign text_align_hr = section.settings.text_align_hr %}
+{% assign sticky_top = section.settings.sticky_top %}
+
+<header>
+  <div class="header layout2 {%if sticky_top %}sticky{%endif%}">    
+    {% include 'currency-picker' %}
+    <div class="header-main-wrap">
+      <div class="header-top ">
+        <div class="container {% if section.settings.layout == 'full-width' %}{{section.settings.layout}} {% endif %}">
+          <div class="row">
+            
+            <div class="header-nav-mobile col-auto">
+              <a class="js-mobile-menu menu-bar mobile-navigation" href="javascript:void(0)">
+                <span class="icon">
+                  <i class="icon-menu1"></i>
+                </span>
+              </a>
+            </div>
+            <div class="header-logo no-mobile flex-1 col-lg-{{col_left}} col-3 col-md-4">
+              {% if template contains 'index' %}
+               <h1>
+                {% if settings.logo != blank %}
+                    <a href="/" class="site-header__logo-image">
+                      {% capture image_size %}{{ settings.logo_max_width | escape }}x{% endcapture %}
+                      <img                                          
+                         src="{{ settings.logo | img_url: image_size, scale: 2 }}"                      
+                         alt="{{ logo_alt | escape }}"
+                         style="max-width: {{ settings.logo_max_width }}px; width:auto; height:auto;">
+                    <noscript>
+                      {% capture image_size %}{{ settings.logo_max_width | escape }}x{% endcapture %}
+                      <img src="{{ settings.logo | img_url: image_size }}"
+                           srcset="{{ settings.logo | img_url: image_size }} 1x, {{ settings.logo | img_url: image_size, scale: 2 }} 2x"
+                           alt="{{ settings.logo.alt | default: shop.name }}"
+                           style="max-width: {{ settings.logo_max_width }}px; width:auto; height:auto;">
+                    </noscript>
+                    </a>
+                  {% else %}
+                  <a class="site-title" href="/" itemprop="url"><span class="logo-default">{{ shop.name }}</span></a>
+                  {% endif %}
+                 </h1>
+              {%else%}
+              		{% if settings.logo_page != blank %}
+                    <a href="/" class="site-header__logo-image">
+                      {% capture image_size %}{{ settings.logo_max_width | escape }}x{% endcapture %}
+                      <img                                          
+                         src="{{ settings.logo_page | img_url: image_size, scale: 2 }}"                      
+                         alt="{{ logo_alt | escape }}"
+                         style="max-width: {{ settings.logo_max_width }}px; width:auto; height:auto;">
+                    <noscript>
+                      {% capture image_size %}{{ settings.logo_max_width | escape }}x{% endcapture %}
+                      <img src="{{ settings.logo_page | img_url: image_size }}"
+                           srcset="{{ settings.logo_page | img_url: image_size }} 1x, {{ settings.logo | img_url: image_size, scale: 2 }} 2x"
+                           alt="{{ settings.logo_page.alt | default: shop.name }}"
+                           style="max-width: {{ settings.logo_max_width }}px; width:auto; height:auto;">
+                    </noscript>
+                    </a>
+                 
+              {% elsif settings.logo != blank %}
+                  <a href="/" class="site-header__logo-image">
+                    {% capture image_size %}{{ settings.logo_max_width | escape }}x{% endcapture %}
+                    <img                                          
+                         src="{{ settings.logo | img_url: image_size, scale: 2 }}"                      
+                         alt="{{ logo_alt | escape }}"
+                         style="max-width: {{ settings.logo_max_width }}px; width:auto; height:auto;">
+                    <noscript>
+                      {% capture image_size %}{{ settings.logo_max_width | escape }}x{% endcapture %}
+                      <img src="{{ settings.logo | img_url: image_size }}"
+                           srcset="{{ settings.logo | img_url: image_size }} 1x, {{ settings.logo | img_url: image_size, scale: 2 }} 2x"
+                           alt="{{ settings.logo.alt | default: shop.name }}"
+                           style="max-width: {{ settings.logo_max_width }}px; width:auto; height:auto;">
+                    </noscript>
+                  </a>
+                  {% else %}
+                  <a class="site-title" href="/" itemprop="url"><span class="logo-default">{{ shop.name }}</span></a>
+                  {% endif %}
+              {%endif%}
+            </div> 
+            <div class="header-logo no-pc flex-1 col-lg-{{col_left}} col-3 col-md-4">
+              	{% if settings.logo_page_mobile != blank %}
+                    <a href="/" class="site-header__logo-image">
+                      {% capture image_size %}{{ settings.logo_max_width | escape }}x{% endcapture %}
+                      <img                                          
+                         src="{{ settings.logo_page_mobile | img_url: image_size, scale: 2 }}"                      
+                         alt="{{ logo_alt | escape }}"
+                         style="max-width: {{ settings.logo_max_width }}px; width:auto; height:auto;">
+                    <noscript>
+                      {% capture image_size %}{{ settings.logo_max_width | escape }}x{% endcapture %}
+                      <img src="{{ settings.logo_page_mobile | img_url: image_size }}"
+                           srcset="{{ settings.logo_page_mobile | img_url: image_size }} 1x, {{ settings.logo_page_mobile | img_url: image_size, scale: 2 }} 2x"
+                           alt="{{ settings.logo.alt | default: shop.name }}"
+                           style="max-width: {{ settings.logo_max_width }}px; width:auto; height:auto;">
+                    </noscript>
+                    </a>
+                  {% else %}
+                  <a class="site-title" href="/" itemprop="url"><span class="logo-default">{{ shop.name }}</span></a>
+                  {% endif %}
+            </div>  
+            <div class="header-nav flex-grow-2"> 	
+            	{%- render 'menu',se_blocks:se_blocks,tp_blocks:tp_blocks -%}
+            </div> 
+            
+            <div class="header-top-meta flex-1 col-auto">
+              <ul class="header-control">  
+                {%if section.settings.header_use_account%}
+                  
+                  <li class="signin item-list display-mobile">
+                    <a href="/account/login" data-id="#login_pupop" class="push_side header-icon" title="{{'customer.login.log_in' | t}}" >
+                      {% unless customer %}
+                      	<span>{{'customer.login.log_in' | t}}</span>
+                      {% else %}
+                      	<span>{{'customer.login.account' | t}}</span>
+					  {% endunless %}	
+                    </a>
+                  </li>
+
+                  
+                 {% endif %}
+                
+                {% if section.settings.header_use_search_home %}
+                <li class="header_search display-mobile">
+                  <a href="/search" class="header-search push_side header-icon" data-id="#search_pupop" title="{{'general.search.title' | t}}">
+                    <i class="icon-search"></i>   
+                  </a>                        
+                </li>   
+                {% endif %}
+                
+                {% if section.settings.header_use_wishlist_home %}
+                <li class="display-mobile"> 
+                  <a href="javascript:void(0);" class="push_side header-icon" data-id="#wishlist_popup" title="{{'general.wishlist.title' | t}}">
+                    <i class="icon-heart"></i>
+                    <span class="header__counter" data-js-wishlist-count="0">0</span>
+                  </a>                        
+                </li>
+                {% endif %}
+                {% if section.settings.header_use_compare_home %}
+                <li class="display-mobile">
+                  <a href="javascript:void(0);" class="push_side header-icon" data-js-popup-button="compare-full" title="{{'general.compare.title' | t}}">
+                    <i class="icon-layers" aria-hidden="true"></i>
+                    <span class="header__counter" data-js-compare-count="0">0</span>
+                  </a>
+                </li>
+                {% endif %}
+                {% if section.settings.header_use_cart_home %}
+                  <li class="box-minicart">
+                    {% include'header-cart'%}
+                  </li>
+                {% endif %}
+                {% if section.settings.button_tell_me %}
+                  <li class="button_tell_me display-mobile">
+                    <a href="javascript:void(0);" class="push_side header-icon"  data-id="#tell_me" title="{{'general.top_header.button_tell_me' | t}}">
+                    <i class=" icon-align-right" aria-hidden="true"></i>
+                  </a>
+                  </li>
+                {% endif %}
+                
+               
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>      
+    </div>
+  </div>
+  
+</header>
+  {%- if admin_sp -%}
+      {%- assign arr_sub = 'link,link2,banner,html,pr,cat' -%}
+      {%- for block in se_blocks %}
+      	<div {% if arr_sub contains block.type %}
+             {% assign id_data = block.id %} {{ block.shopify_attributes }}{% else %}{% assign id_data2 = block.id %}{% endif %}id="bkjs_{{id_data}}" data-id='{{id_data2}}'></div>{% endfor -%}
+  {%- endif -%}
+
+{%style%}
+@media only screen and (min-width : 1200px){
+  {% if section.settings.background_header != blank %}
+  body.home .header{
+ 	 background-color:{{section.settings.background_header}};
+  }
+  {%endif%}
+  {% if section.settings.color_menu_text != blank %}
+	body.home .header .header-nav-mobile .mobile-navigation .icon,
+    body.home .header .header-icon{
+      color:{{section.settings.color_menu_text}};
+    }
+  {%endif%}
+}
+{%endstyle%}

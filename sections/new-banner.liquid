@@ -1,0 +1,100 @@
+{% schema %}
+{
+  "name": "New Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "BOOK YOUR FREE CONSULTATION TODAY"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Our experts are here to guide you every step of the way. Get a personalized plan to achieve your health goals- for your best tomorrow."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Book An Appointment"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link",
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label (above button)",
+      "default": "Speak To Our Nutritionist"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop Banner Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile Banner Image"
+    },
+    {
+      "type": "url",
+      "id": "banner_link",
+      "label": "Banner Link",
+      "default": "/"
+    }
+  ],
+  "presets": [
+    {
+      "name": "New Banner"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="main_banner_container container">
+  <div class="banner_image_text">
+    <div class="banner_head_text">
+      <span class="banner_img_heading">{{ section.settings.heading }}</span>
+    </div>
+    <div class="banner_image_text_sec">
+      <span class="banner_img_text">{{ section.settings.subheading }}</span>
+    </div>
+    <div class="banner_btn_head hide-mobile">
+      <div class="banner_btn_text">
+        <span>{{ section.settings.button_label }}</span>
+      </div>
+      <div class="banner_btnn">
+        <a class="banner_link_btn" href="{{ section.settings.button_link }}">{{ section.settings.button_text }}</a>
+      </div>
+    </div>
+  </div>
+  <div class="main_banner_image">
+    <div class="desktop_banner small-hide">
+      <a href="{{ section.settings.banner_link }}">
+        {% if section.settings.desktop_image %}
+          <img class="desktop_banner_img" src="{{ section.settings.desktop_image | img_url: 'master' }}" loading="lazy" alt="{{ section.settings.heading }}">
+        {% endif %}
+      </a>
+    </div>
+    <div class="mobile_banner_image large-up-hide medium-hide">
+      <a href="{{ section.settings.banner_link }}">
+        {% if section.settings.mobile_image %}
+          <img class="mobile_banner_img" src="{{ section.settings.mobile_image | image_url }}" loading="lazy" alt="{{ section.settings.heading }}">
+        {% endif %}
+      </a>
+    </div>
+  </div>
+  <div class="banner_btn_head hide-desktop">
+    <div class="banner_btn_text">
+      <span>{{ section.settings.button_label }}</span>
+    </div>
+    <div class="banner_btnn">
+      <a class="banner_link_btn" href="{{ section.settings.button_link }}">{{ section.settings.button_text }}</a>
+    </div>
+  </div>
+</div>

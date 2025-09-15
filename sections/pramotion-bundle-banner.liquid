@@ -1,0 +1,355 @@
+{%- liquid
+  assign sid = section.id
+  assign layout = section.settings.layout
+  assign mg = section.settings.mg
+  assign pd = section.settings.pd
+  assign mg_mb = section.settings.mg_mb
+  assign pd_mb = section.settings.pd_mb
+  assign cl_bg = section.settings.cl_bg
+-%}
+
+{%- for i in (1..1) -%}
+<section id="laber_se_{{sid}}" class="promotional-bundle-banner">
+  <div class="{% if layout == 'full-width' %}{{layout}}{% else %}container{% endif %}">
+    <div class="exclusive-savings">
+      <h2 class="exclusive-heading">{{section.settings.offer_title}}</h2>
+      {%- if section.blocks.size > 0 -%}
+          <div class="bundle-banner-slider">
+            <div class="grid-slider js_carousel laber-slick-carousel grid-slider-{{sid}}" 
+                 data-wrapper="#shopify-section-{{sid}}" 
+                 data-adaptive-height="false" 
+                 data-autoplay="{% if section.settings.autoplay %}true{% else %}false{% endif %}" 
+                 data-autoplay-speed="{{section.settings.autoplay_speed}}" 
+                 data-arrows="{% if section.settings.arrows %}true{% else %}false{% endif %}" 
+                 data-center-mode="false" 
+                 data-dots="{% if section.settings.dots %}true{% else %}false{% endif %}" 
+                 data-fade="false" 
+                 data-infinite="{% if section.settings.infinite %}true{% else %}false{% endif %}" 
+                 data-padding="1" 
+                 data-rows="1" 
+                 data-slides-to-show="{{section.settings.slides_to_show}}" 
+                 data-slides-to-scroll="1" 
+                 data-speed="{{section.settings.speed}}" 
+                 data-vertical="false" 
+                 data-vertical-swiping="false" 
+                 data-responsive="[{&quot;breakpoint&quot;: 1921, &quot;settings&quot;: {&quot;slidesToShow&quot;: {{section.settings.slides_to_show}} }},{&quot;breakpoint&quot;: 1920, &quot;settings&quot;: {&quot;slidesToShow&quot;: {{section.settings.slides_to_show}} }},{&quot;breakpoint&quot;: 1480, &quot;settings&quot;: {&quot;slidesToShow&quot;: {{section.settings.slides_to_show_ipad_pro}} }},{&quot;breakpoint&quot;: 1200, &quot;settings&quot;: {&quot;slidesToShow&quot;: {{section.settings.slides_to_show_ipad_pro}} }},{&quot;breakpoint&quot;: 992, &quot;settings&quot;: {&quot;slidesToShow&quot;: {{section.settings.slides_to_show_ipad}} }},{&quot;breakpoint&quot;: 768, &quot;settings&quot;: {&quot;slidesToShow&quot;: {{section.settings.slides_to_show_ipad}} }},{&quot;breakpoint&quot;: 576, &quot;settings&quot;: {&quot;slidesToShow&quot;: {{section.settings.slides_to_show_mobile}} }},{&quot;breakpoint&quot;: 481, &quot;settings&quot;: {&quot;slidesToShow&quot;: {{section.settings.slides_to_show_mobile}} }},{&quot;breakpoint&quot;: 361, &quot;settings&quot;: {&quot;slidesToShow&quot;: {{section.settings.slides_to_show_mobile_vertical}} }},{&quot;breakpoint&quot;: 1, &quot;settings&quot;: {&quot;slidesToShow&quot;: {{section.settings.slides_to_show_mobile_vertical}} }}]" 
+                 data-append-arrows=".arrows_{{ section.id }}" 
+                 data-append-dots=".dots_{{section.id}}">
+              
+              {%- for block in section.blocks -%}
+                
+                {%- case block.type -%}
+                  {%- when 'bundle_offer' -%}
+                    
+                    <a href="{{block.settings.button_link | default: '#'}}" class="alo-item">
+                      <div id="b_{{block.id}}" class="promo-item">
+                        {%- assign product_image = block.settings.product_image_1 -%}
+                        {%- if product_image != blank -%}
+                          <img src="{{product_image | image_url }}" 
+                                alt="{{product_image.alt | default: 'Product'}}"
+                                    loading="lazy">
+                        {%- endif -%}
+                        <div class="promo-text-content">
+                          {% if block.settings.offer_subtitle != blank %}
+                            <h3 class="offer-title">{{block.settings.offer_subtitle}}</h3>
+                          {% endif %}
+                        </div>
+                          {% if block.settings.button_text != blank %}
+                            <div class="button-container">
+                              <button  
+                                 class="btn" 
+                                 tabindex="{{forloop.index}}">
+                                {{block.settings.button_text}}
+                              </button>
+                            </div>
+                          {% endif %}
+                      </div>
+                   </a>
+                {%- endcase -%}
+              {%- endfor -%}
+            </div>
+            
+            {%- if section.settings.arrows -%}
+              <div class="arrows_{{ section.id }} laber_arrow">
+                <button type="button" class="slick-prev slick-arrow" aria-label="Previous">
+                  <i class="icon-arrow-left"></i>
+                </button>
+                <button type="button" class="slick-next slick-arrow" aria-label="Next">
+                  <i class="icon-arrow-right"></i>
+                </button>
+              </div>
+            {%- endif -%}
+            
+            {%- if section.settings.dots -%}
+              <div class="dots_{{section.id }} laber_dots"></div>
+            {%- endif -%}
+          </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{%- endfor -%}
+
+{%- capture style -%}
+  {%- if mg != blank or pd != blank or cl_bg != blank -%}
+    #laber_se_{{sid}} {
+      {%- if mg != blank %}{% assign arr_mg = mg | remove:' ' | split:',' -%}
+        margin-top: {{arr_mg[0]}} !important;
+        margin-right: {{arr_mg[1]}} !important;
+        margin-bottom: {{arr_mg[2]}} !important;
+        margin-left: {{arr_mg[3]}} !important;
+        {%- if arr_mg[3] != blank and section.settings.layout == 'full-width' -%}
+          width: calc(100% - {{arr_mg[3]}} - {{arr_mg[1]}});
+          width: -webkit-calc(100% - {{arr_mg[3]}} - {{arr_mg[1]}});
+        {%- endif -%}
+      {%- endif -%}
+      {%- if pd != blank %}{% assign arr_pd = pd | remove:' ' | split:',' -%}
+        padding-top: {{arr_pd[0]}} !important;
+        padding-right: {{arr_pd[1]}} !important;
+        padding-bottom: {{arr_pd[2]}} !important;
+        padding-left: {{arr_pd[3]}} !important;
+      {%- endif -%}
+      {%- if cl_bg != blank -%}
+        background-color: {{cl_bg}};
+      {%- endif -%}
+    }
+  {%- endif -%}
+  
+  {%- if mg_mb != blank or pd_mb != blank -%}
+    @media only screen and (max-width: 767px) {
+      #laber_se_{{sid}} {
+        {%- if mg_mb != blank %}{% assign arr_mg = mg_mb | remove:' ' | split:',' -%}
+          margin-top: {{arr_mg[0]}} !important;
+          margin-right: {{arr_mg[1]}} !important;
+          margin-bottom: {{arr_mg[2]}} !important;
+          margin-left: {{arr_mg[3]}} !important;
+          {%- if arr_mg[3] != blank and section.settings.layout == 'full-width' -%}
+            width: calc(100% - {{arr_mg[3]}} - {{arr_mg[1]}});
+            width: -webkit-calc(100% - {{arr_mg[3]}} - {{arr_mg[1]}});
+          {%- endif -%}
+        {%- endif -%}
+        {%- if pd_mb != blank %}{% assign arr_pd = pd_mb | remove:' ' | split:',' -%}
+          padding-top: {{arr_pd[0]}} !important;
+          padding-right: {{arr_pd[1]}} !important;
+          padding-bottom: {{arr_pd[2]}} !important;
+          padding-left: {{arr_pd[3]}} !important;
+        {%- endif -%}
+      }
+    }
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- style -%}{{ style | strip_newlines | remove:"  "}}{%- endstyle -%}
+
+{%- schema -%}
+{
+  "name": "Promotional Bundle Banner",
+  "class": "nt_section type_promotional_bundle_banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "offer_title",
+      "label": "Offer Title",
+      "default": "GLOW MORE, SAVE MORE!"
+    },
+    {
+      "type": "header",
+      "content": "== Slider Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Autoplay speed",
+      "default": 5
+    },
+    {
+      "type": "checkbox",
+      "id": "arrows",
+      "label": "Show arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "dots",
+      "label": "Show dots",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "infinite",
+      "label": "Infinite loop",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 300,
+      "max": 1000,
+      "step": 100,
+      "unit": "ms",
+      "label": "Transition speed",
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "slides_to_show",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Slides to show (Desktop)",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "slides_to_show_ipad_pro",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Slides to show (iPad Pro)",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "slides_to_show_ipad",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Slides to show (iPad)",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "slides_to_show_mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Slides to show (Mobile)",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "slides_to_show_mobile_vertical",
+      "min": 1,
+      "max": 1,
+      "step": 1,
+      "label": "Slides to show (Mobile Vertical)",
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "== Design Options"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "options": [
+        {
+          "value": "container",
+          "label": "Container"
+        },
+        {
+          "value": "full-width",
+          "label": "Full Width"
+        }
+      ],
+      "label": "Layout",
+      "default": "container"
+    },
+    {
+      "type": "color",
+      "id": "cl_bg",
+      "label": "Background color",
+      "default": "#f8f9fa"
+    },
+    {
+      "type": "text",
+      "id": "mg",
+      "label": "Margin",
+      "info": "Margin top, margin right, margin bottom, margin left. If you not use to blank",
+      "default": "50px,,50px,",
+      "placeholder": "50px,,50px,"
+    },
+    {
+      "type": "text",
+      "id": "pd",
+      "label": "Padding",
+      "info": "Padding top, padding right, padding bottom, padding left. If you not use to blank",
+      "default": "50px,,50px,",
+      "placeholder": "50px,,50px,"
+    },
+    {
+      "type": "header",
+      "content": "== Design Mobile Options"
+    },
+    {
+      "type": "text",
+      "id": "mg_mb",
+      "label": "Margin",
+      "placeholder": "30px,,30px,"
+    },
+    {
+      "type": "text",
+      "id": "pd_mb",
+      "label": "Padding",
+      "placeholder": "30px,,30px,"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bundle_offer",
+      "name": "Bundle Offer",
+      "settings": [
+        {
+          "type": "text",
+          "id": "offer_subtitle",
+          "label": "Offer Title",
+          "default": "Choose Any 3 products from the entire range. Yes, ANY 3!"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "SHOP NOW"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_image_1",
+          "label": "Product Image"
+        },
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promotional Bundle Banner",
+      "category": "Promotional",
+      "blocks": [
+        {
+          "type": "bundle_offer"
+        },
+        {
+          "type": "bundle_offer"
+        },
+        {
+          "type": "bundle_offer"
+        }
+      ]
+    }
+  ]
+}
+{%- endschema -%} 

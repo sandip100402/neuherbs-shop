@@ -1,0 +1,93 @@
+<style>
+.collection-description-toggle h3.description-toggle-title {
+  margin-bottom: 15px;
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.collection-description-toggle .meta_content_wrapper {
+  margin: 0 0 20px;
+}
+
+.collection-description-toggle .short-description,
+.collection-description-toggle .full-description {
+  text-align: left;
+  font-size: 16px;
+}
+
+.collection-description-toggle .short-description {
+  display: inline; /* short stays inline */
+}
+
+.collection-description-toggle .full-description {
+  display: none; /* hidden by default */
+}
+
+.collection-description-toggle .moreless-button {
+  font-weight: 600;
+  text-decoration: none;
+  color: #167a62;
+  cursor: pointer;
+  display: inline; /* keep inline with text */
+  margin-left: 5px;
+  font-size: 16px;
+}
+</style>
+
+{%- if collection.description != blank -%}
+<div class="collection-description-toggle container">
+    <div class="collection__description rte quick-add-hidden">
+      {% comment %} <h3 class="description-toggle-title">Collection Description</h3> {% endcomment %}
+      <div class="meta_content_wrapper">
+        <div class="meta_content text-left">
+          
+          <!-- Short part (plain text truncated) -->
+          <span class="short-description">
+            {{ collection.description | strip_html | truncatewords: 50 }}
+          </span>
+
+          <!-- Full hidden part (HTML intact) -->
+          <span class="full-description">
+            {{ collection.description }}
+          </span>
+
+          <!-- Toggle button -->
+          <span class="moreless-button">Read more...</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const fullDescription = document.querySelector('.full-description');
+        const shortDescription = document.querySelector('.short-description');
+        const moreLessButton = document.querySelector('.moreless-button');
+
+        moreLessButton.addEventListener('click', function() {
+          if (fullDescription.style.display === 'none' || fullDescription.style.display === '') {
+            fullDescription.style.display = 'block';
+            shortDescription.style.display = 'none';
+            moreLessButton.textContent = 'Read less...';
+          } else {
+            fullDescription.style.display = 'none';
+            shortDescription.style.display = 'inline';
+            moreLessButton.textContent = 'Read more...';
+          }
+        });
+      });
+    </script>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Collection Des Toggle",
+  "settings": [],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Collection Description Toggle"
+    }
+  ]
+}
+{% endschema %}

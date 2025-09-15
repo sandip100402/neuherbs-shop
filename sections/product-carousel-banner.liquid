@@ -1,0 +1,438 @@
+{% liquid
+  assign sid = section.id 
+  assign sett_equal = section.settings.use_eq_height 
+  assign ck = section.settings.use_eq_height
+%}
+   
+{%- for i in (1..1) -%}
+<section id="laber_{{sid}}" style="padding:{{section.settings.mg_top}}px {{section.settings.mg_right}}px {{section.settings.mg_bottom}}px {{section.settings.mg_left}}px; "> 
+  <div class="laber_se_{{sid}}">    
+    <div class="full-width">
+      <div class="laber-section use_banner">
+        <div class="wrap_title medium">
+          {% if section.settings.sub_title != blank %}
+            <span class="section-subtitle">{{section.settings.sub_title}}</span>
+          {% endif %}
+          
+          {% if section.settings.title != blank %}
+            <div class="section-title">
+              <h2 class="section_title_heading">{{section.settings.title}}</h2>
+            </div>
+          {% endif %}
+        </div>
+        
+        <div class="content-section flex alo-gap" style="--alo-gap:{{section.settings.gap}}px;">
+          
+          {% if section.settings.show_banner %}
+            <div class="banner_countdown alo-width" style="--alo-width:{{section.settings.banner_width}}px;">
+              <div class="image_static images-card h-full">
+                <div data-image-id="{{section.settings.banner_image.id}}" class="alo-image overflow-hidden alo-border-radius ratio w-full h-full" style="--alo-border-radius:{{section.settings.border_radius}}px; --ratio-percent: 100.0%;">
+                  {% if section.settings.banner_link != blank %}
+                    <a class="block h-full" href="{{section.settings.banner_link}}" target="{{section.settings.banner_link_target}}" title="" aria-label="link"></a>
+                  {% endif %}
+                  
+                  {% if section.settings.banner_image != blank %}
+                    <img class="desktop_about_us_img" src="{{section.settings.banner_image | img_url: '600x'}}" loading="lazy" alt="{{section.settings.banner_image.alt}}">
+                  {% else %}
+                    <div class="pr_lazy_img laber_bg_lz lazyload" style="padding-top: 100%;" data-bg="https://via.placeholder.com/400x400.png/f5f5f5/f5f5f5?text=Banner+Image"></div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endif %}
+          
+          <div class="products-arrivals products-list-countdown alo-minus-width" style="--alo-minus-width:{% if section.settings.show_banner %}{{section.settings.banner_width}}{% else %}0{% endif %}px;">	
+            <div class="content_section slick-carousel">
+              <div class="grid-slider js_carousel laber-slick-carousel grid-slider-{{sid}}" 
+                   data-wrapper="#shopify-section-{{sid}}" 
+                   data-adaptive-height="false" 
+                   data-autoplay="{% if section.settings.autoplay %}true{% else %}false{% endif %}" 
+                   data-autoplay-speed="{{section.settings.autoplay_speed}}" 
+                   data-arrows="{% if section.settings.arrows %}true{% else %}false{% endif %}" 
+                   data-center-mode="false" 
+                   data-dots="{% if section.settings.dots %}true{% else %}false{% endif %}" 
+                   data-fade="false" 
+                   data-infinite="{% if section.settings.infinite %}true{% else %}false{% endif %}" 
+                   data-padding="1" 
+                   data-rows="1" 
+                   data-slides-to-show="{{section.settings.slides_to_show}}" 
+                   data-slides-to-scroll="1" 
+                   data-speed="{{section.settings.speed}}" 
+                   data-vertical="false" 
+                   data-vertical-swiping="false" 
+                   data-responsive="[{&quot;breakpoint&quot;: 1921, &quot;settings&quot;: {&quot;slidesToShow&quot;: {{section.settings.slides_to_show}} }},{&quot;breakpoint&quot;: 1920, &quot;settings&quot;: {&quot;slidesToShow&quot;: {{section.settings.slides_to_show}} }},{&quot;breakpoint&quot;: 1480, &quot;settings&quot;: {&quot;slidesToShow&quot;: {{section.settings.slides_to_show_ipad_pro}} }},{&quot;breakpoint&quot;: 1200, &quot;settings&quot;: {&quot;slidesToShow&quot;: {{section.settings.slides_to_show_ipad_pro}} }},{&quot;breakpoint&quot;: 992, &quot;settings&quot;: {&quot;slidesToShow&quot;: {{section.settings.slides_to_show_ipad}} }},{&quot;breakpoint&quot;: 768, &quot;settings&quot;: {&quot;slidesToShow&quot;: {{section.settings.slides_to_show_ipad}} }},{&quot;breakpoint&quot;: 576, &quot;settings&quot;: {&quot;slidesToShow&quot;: {{section.settings.slides_to_show_mobile}} }},{&quot;breakpoint&quot;: 481, &quot;settings&quot;: {&quot;slidesToShow&quot;: {{section.settings.slides_to_show_mobile}} }},{&quot;breakpoint&quot;: 361, &quot;settings&quot;: {&quot;slidesToShow&quot;: {{section.settings.slides_to_show_mobile_vertical}} }},{&quot;breakpoint&quot;: 1, &quot;settings&quot;: {&quot;slidesToShow&quot;: {{section.settings.slides_to_show_mobile_vertical}} }}]" 
+                   data-append-arrows=".arrows_{{ section.id }}" 
+                   data-append-dots=".dots_{{section.id}}">
+                
+                {%- if section.settings.collection != blank -%}
+                  {%- assign products = collections[section.settings.collection].products -%}
+                  {%- capture url_cat -%}{%- if routes.root_url != '/' -%}{{routes.root_url}}{%- endif -%}{% if section.settings.collection %}/collections/{{section.settings.collection.handle}}{% endif %}{%- endcapture -%}
+                  {%- for product in products limit: section.settings.max_count -%}
+                    {% assign pr_hd = product.handle %}
+                    <div data-lazy-product-load class="alo-item productLazyload lazyload" data-include="{{url_cat}}/products/{{pr_hd}}/?view=pr_lazy_load">
+                    </div>
+                  {%- endfor -%}
+                {%- else -%}
+                  {% for i in (1..6) %}
+                    <div class="alo-item">
+                      <div class="product-item w-full h-full" data-col="">
+                        <div class="product-collection w-full h-full alo-border-radius" style="--alo-border-radius:5px;" data-js-product="">
+                          <div class="product-collection__image product-image js-product-images-navigation js-product-images-hovered-end">
+                            <div class="card__media">
+                              <div class="media">
+                                <a href="#" class="d-block image_product cursor-default ratio" style="--ratio-percent: 100%;" data-js-product-image="">
+                                  <div class="pr_lazy_img laber_bg_lz lazyload" style="padding-top: 100%;" data-bg="https://via.placeholder.com/400x400.png/f5f5f5/f5f5f5?text=Product+{{i}}"></div>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="product-collection__content style_left">
+                            <div class="product-collection__title">
+                              <h3><a href="#">Sample Product {{i}}</a></h3>
+                            </div>
+                            <div class="product-collection__price">
+                              <span class="price">${{i}}9.99</span>
+                            </div>
+                            <div class="button-cart-bottom flex">
+                              <a href="#" class="js_select_options select_options">
+                                <div class="laber-loading">
+                                  <div class="circle-loadding"><span></span></div>
+                                </div>
+                                <span class="text">Add to Cart</span>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                {%- endif -%}
+                
+              </div>
+            </div>
+            
+            {% if section.settings.dots %}
+              <div class="laber_append_dots dots_{{section.id}}"></div>
+            {% endif %}
+            
+            {% if section.settings.arrows %}
+              <div class="laber_append_arrows arrows_{{ section.id }}">
+                <button class="slick-prev slick-arrow" aria-label="Previous" type="button">Previous</button>
+                <button class="slick-next slick-arrow" aria-label="Next" type="button">Next</button>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style data-shopify="">
+#laber_{{sid}} {
+  padding-top: {{section.settings.mg_top}}px;
+  padding-right: {{section.settings.mg_right}}px;
+  padding-bottom: {{section.settings.mg_bottom}}px;
+  padding-left: {{section.settings.mg_left}}px;
+  background-color: {{section.settings.bg_color}};
+}
+
+@media only screen and (max-width: 1024px) {
+  #laber_{{sid}} {
+    padding-top: {{section.settings.mobile_mg_top}}px;
+    padding-right: 5px;
+    padding-bottom: {{section.settings.mobile_mg_bottom}}px;
+    padding-left: 5px;
+  }
+}
+</style>
+
+{%- endfor -%}
+
+{% schema %}
+{
+  "name": "Product Carousel Banner",
+  "class": "cms_section type_carousel product_section products_collection_countdown type_carousel",
+  "settings": [
+    {
+      "type": "header",
+      "content": "== General Settings"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "New Launches"
+    },
+    {
+      "type": "text",
+      "id": "sub_title",
+      "label": "Section Subtitle"
+    },
+    {
+      "type": "header",
+      "content": "== Banner Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_banner",
+      "label": "Show Banner",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "url",
+      "id": "banner_link",
+      "label": "Banner Link"
+    },
+    {
+      "type": "select",
+      "id": "banner_link_target",
+      "label": "Banner Link Target",
+      "default": "_self",
+      "options": [
+        {
+          "value": "_self",
+          "label": "Same window"
+        },
+        {
+          "value": "_blank",
+          "label": "New window"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "banner_width",
+      "min": 200,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "label": "Banner Width",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Border Radius",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Gap between banner and carousel",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "== Carousel Settings"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Select collection to display products from"
+    },
+    {
+      "type": "range",
+      "id": "max_count",
+      "min": 4,
+      "max": 50,
+      "step": 1,
+      "label": "Maximum products to show",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "slides_to_show",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "label": "Slides to show (Desktop)",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "slides_to_show_ipad_pro",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "label": "Slides to show (iPad Pro)",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "slides_to_show_ipad",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "label": "Slides to show (iPad)",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "slides_to_show_mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Slides to show (Mobile)",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "slides_to_show_mobile_vertical",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "label": "Slides to show (Mobile Vertical)",
+      "default": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 1000,
+      "max": 8000,
+      "step": 500,
+      "unit": "ms",
+      "label": "Autoplay speed",
+      "default": 3000
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 100,
+      "max": 1000,
+      "step": 100,
+      "unit": "ms",
+      "label": "Animation speed",
+      "default": 300
+    },
+    {
+      "type": "checkbox",
+      "id": "arrows",
+      "label": "Show navigation arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "dots",
+      "label": "Show navigation dots",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "infinite",
+      "label": "Infinite loop",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "== Design Options"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_eq_height",
+      "label": "Use equal height images?",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "== Spacing Settings"
+    },
+    {
+      "type": "range",
+      "id": "mg_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Margin top (Desktop)",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "mg_right",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Margin right (Desktop)",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mg_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Margin bottom (Desktop)",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "mg_left",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Margin left (Desktop)",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "== Mobile Spacing Settings"
+    },
+    {
+      "type": "range",
+      "id": "mobile_mg_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Margin top (Mobile)",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "mobile_mg_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Margin bottom (Mobile)",
+      "default": 15
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Carousel Banner",
+      "category": "Collections"
+    }
+  ]
+}
+{% endschema %} 
